@@ -11,6 +11,21 @@
  */
 class Solution {
 public:
+    void insert(TreeNode *curr, TreeNode* node){
+        if(node == NULL || curr == NULL) return;
+        while(true){
+            if(curr -> val == node -> val)
+                break;
+            else if(curr -> val > node -> val){
+                if(curr -> left) curr = curr -> left;
+                else{curr -> left = node; break;}
+            }
+            else{
+                if(curr -> right) curr = curr -> right;
+                else{curr -> right = node; break;}
+            }
+        }   
+    }
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(root == NULL) return root;
         if(root -> val == key) {
@@ -19,18 +34,7 @@ public:
                 if(root -> left){
                     auto curr = root -> right;
                     auto node = root -> left;
-                    while(true){
-                        if(curr -> val == node -> val)
-                            break;
-                        else if(curr -> val > node -> val){
-                            if(curr -> left) curr = curr -> left;
-                            else{curr -> left = node; break;}
-                        }
-                        else{
-                            if(curr -> right) curr = curr -> right;
-                            else{curr -> right = node; break;}
-                        }
-                    }
+                    insert(curr,node);
                 }
                 root = root -> right;
             }
