@@ -19,8 +19,7 @@ public:
             return root -> val;
         cnt++;
         int rans = ks(root -> right, k , cnt);
-        if(rans != -1) return rans;
-        return -1;        
+        return rans;       
     }
     int kthSmallest(TreeNode* root, int k) {
         int cnt = 1;
