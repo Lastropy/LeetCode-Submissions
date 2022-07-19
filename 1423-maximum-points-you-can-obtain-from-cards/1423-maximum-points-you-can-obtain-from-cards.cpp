@@ -9,10 +9,9 @@ public:
             return ans;
         int a = ans;
         int i =  k - 1;
-        int j  = n -1;
+        int j  = n - 1;
         while(i >= 0){
-            ans -= cardPoints[i--];
-            ans += cardPoints[j--];
+            ans = ans - cardPoints[i--] + cardPoints[j--];
             a = max(ans, a); 
         }
         return a;
