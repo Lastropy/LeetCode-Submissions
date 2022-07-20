@@ -10,10 +10,10 @@ public:
             return vector<int>(arr.begin() + n - k, arr.end());
         priority_queue<pair<int,int>> max_heap;
         vector<int> ans;
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < n; i++){
             max_heap.push({abs(arr[i]-x),arr[i]});
-        while(max_heap.size() > k){
-            max_heap.pop();
+            if(max_heap.size() > k)
+                max_heap.pop();
         }
         while(!max_heap.empty()){
             ans.push_back(max_heap.top().second);
