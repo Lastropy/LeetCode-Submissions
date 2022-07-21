@@ -13,8 +13,7 @@ public:
         }
         vector<vector<string>> ans;
         for(auto [k,v]: mp){
-            // cout << k << endl;
-            ans.push_back(v);
+            ans.push_back(move(v));
         }
         return ans;
     }
