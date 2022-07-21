@@ -9,13 +9,11 @@ public:
     bool validPalindrome(string s) {
         int i , j;
         int n = s.size();
-        int count  = 0;
         for(i = 0, j = n-1; i < j; i++, j--){
-            if(s[i] == s[j])
-                continue;
-            if(count == 1)
-                return false;
-            return ifPalin(s.substr(0,i)+s.substr(i+1)) || ifPalin(s.substr(0,j) + s.substr(j+1));
+            if(s[i] != s[j])
+            {
+                return ifPalin(s.substr(0,i)+s.substr(i+1)) || ifPalin(s.substr(0,j) + s.substr(j+1));
+            }
         }
         return true;
     }
