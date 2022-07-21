@@ -7,14 +7,15 @@ public:
             for(char c: s)
                 freq[c-'a']++;
             string key = "";
-            for(int i = 0;i < 26; i++)
-                if(freq[i])
-                    key += string(1,(char)('a'+i))+to_string(freq[i])+"-";
+            for(int i: freq)
+                key += to_string(i)+"-";
             mp[key].push_back(s);                   
         }
         vector<vector<string>> ans;
-        for(auto [k,v]: mp)
+        for(auto [k,v]: mp){
+            // cout << k << endl;
             ans.push_back(v);
+        }
         return ans;
     }
 };
