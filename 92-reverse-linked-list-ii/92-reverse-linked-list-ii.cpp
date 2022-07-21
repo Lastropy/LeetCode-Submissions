@@ -24,28 +24,29 @@ public:
         }
         return prev;
     }
+    ListNode* getNode(ListNode* head, int c){
+        if(c==1) return NULL;
+        auto temp = head;
+        for(int i = 1; i < c - 1; i++){
+            temp = temp -> next;
+        }
+        return temp;
+    }
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         if(left == right || head == NULL) return head;
         auto curr = head;
-        ListNode* prev = NULL;
-        int count = 1;
-        while(count < left){
-            count++;
-            prev = curr;
-            curr = curr -> next;
-        }
-        auto tail = curr;
-        while(count < right){
-            count++;
-            curr = curr -> next;
-        }
-        auto en = curr -> next;
-        curr -> next = NULL;
+        auto st = head;
+        ListNode* prev = getNode(head, left);
+        if(prev) st = prev -> next;
+        else st = head;
+        auto tail = getNode(head, right) -> next;
+        auto en = tail -> next;
+        tail -> next = NULL;
         if(prev)
-            prev -> next = reverse(prev -> next);
+            prev -> next = reverse(st);
         else
-            head = reverse(head);
-        tail -> next = en;
+            head = reverse(st);
+        st -> next = en;
         return head;
         
     }
