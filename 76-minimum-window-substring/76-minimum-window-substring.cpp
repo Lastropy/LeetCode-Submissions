@@ -15,9 +15,6 @@ public:
                 if(mp[s[j]] == 0)
                     uniq--;
             }
-            // for(auto [k,v] : mp)
-            //     cout << k << " = "<<v << endl;
-            // cout << uniq<<"_____________" << endl;
             while(i < n && uniq == 0){
                 int currLen = j - i + 1;
                 if(currLen < len){
