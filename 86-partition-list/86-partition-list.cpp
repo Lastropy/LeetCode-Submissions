@@ -12,10 +12,8 @@ class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
         ListNode* smol = new ListNode();
-        auto d1 = smol;
         ListNode* big = new ListNode();
-        auto d2 = big;
-        auto curr = head;
+        auto d1 = smol,d2 = big, curr = head;
         while(curr){
             auto node = new ListNode(curr -> val);
             if(curr -> val < x)
@@ -31,16 +29,10 @@ public:
         }
         d1 = d1 -> next;
         d2 = d2 -> next;
-        auto ans = new ListNode();
-        auto d3 = ans;
         if(d1){
-            ans -> next = d1;
             smol -> next = d2;
+            return d1;
         }
-        else{
-            ans -> next = d2;
-        }
-        return d3 -> next;
-       
+        return d2;
     }
 };
