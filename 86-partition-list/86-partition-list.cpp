@@ -17,13 +17,14 @@ public:
         auto d2 = big;
         auto curr = head;
         while(curr){
+            auto node = new ListNode(curr -> val);
             if(curr -> val < x)
             {
-                smol -> next = new ListNode(curr -> val);
+                smol -> next = node;
                 smol = smol -> next;
             }
             else{
-                big -> next = new ListNode(curr -> val);
+                big -> next = node;
                 big = big -> next;
             }
             curr = curr -> next;
@@ -34,10 +35,9 @@ public:
         auto d3 = ans;
         if(d1){
             ans -> next = d1;
+            smol -> next = d2;
         }
-        while(ans -> next)
-            ans = ans -> next;
-        if(d2){
+        else{
             ans -> next = d2;
         }
         return d3 -> next;
