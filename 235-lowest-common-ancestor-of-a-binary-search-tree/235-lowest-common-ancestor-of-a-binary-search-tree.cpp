@@ -45,13 +45,12 @@ public:
         // Solution 3 -> iterative version of Soln 2
         TreeNode* cur = root;
         while (true) {
-            if (p -> val < cur -> val && q -> val < cur -> val) {
+            if (p -> val < cur -> val && q -> val < cur -> val) 
                 cur = cur -> left;
-            } else if (p -> val > cur -> val && q -> val > cur -> val) {
+            else if (p -> val > cur -> val && q -> val > cur -> val)
                 cur = cur -> right;
-            } else {
+            else 
                 break;
-            }
         }
         return cur;
         
