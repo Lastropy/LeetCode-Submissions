@@ -15,7 +15,9 @@ public:
         p1.push_back(root);
         if(root -> val == p -> val)
             return true;
-        if(path(root -> left, p, p1) || path(root -> right, p , p1))
+        else if(root -> val > p -> val && path(root -> left, p, p1))
+            return true;
+        else if(root -> val < p -> val && path(root -> right, p ,p1))
             return true;
         p1.pop_back();
         return false;
