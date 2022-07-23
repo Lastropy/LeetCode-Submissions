@@ -33,11 +33,27 @@ public:
         // return ans;
         
         
-        // Solution 2 -> using property of BST
-        if(root -> val < p-> val && root -> val < q-> val)
-            return lowestCommonAncestor(root -> right, p , q);
-        else if( root -> val > p -> val && root -> val > q -> val)
-            return lowestCommonAncestor(root -> left, p , q);
-        return root;
+        // // Solution 2 -> using property of BST - recursive
+        // if(root -> val < p-> val && root -> val < q-> val)
+        //     return lowestCommonAncestor(root -> right, p , q);
+        // else if( root -> val > p -> val && root -> val > q -> val)
+        //     return lowestCommonAncestor(root -> left, p , q);
+        // return root;
+        // // TC -> O(lg n)
+        // // SC -> O(lg n)
+        
+        // Solution 3 -> iterative version of Soln 2
+        TreeNode* cur = root;
+        while (true) {
+            if (p -> val < cur -> val && q -> val < cur -> val) {
+                cur = cur -> left;
+            } else if (p -> val > cur -> val && q -> val > cur -> val) {
+                cur = cur -> right;
+            } else {
+                break;
+            }
+        }
+        return cur;
+        
     }
 };
