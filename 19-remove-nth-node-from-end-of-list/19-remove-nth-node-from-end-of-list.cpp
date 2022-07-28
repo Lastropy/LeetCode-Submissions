@@ -21,15 +21,9 @@ public:
         return cnt;
     }
     ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head ) return head;
         int length = len(head);
         int rem = length - n + 1;
-        if(rem == 1)
-        {
-            auto temp = head;
-            head = head -> next;
-            delete temp;
-            return head;
-        }
         auto curr = head;
         ListNode* prev = NULL;
         for(int i = 1; i < rem; i++){
@@ -37,8 +31,8 @@ public:
             curr = curr -> next;
         }
         auto temp = curr;
-        if(curr) prev -> next = curr -> next;
-        else prev -> next = NULL;
+        if(prev) prev -> next = curr -> next;
+        else head = curr -> next;
         delete temp;
         return head;
     }
