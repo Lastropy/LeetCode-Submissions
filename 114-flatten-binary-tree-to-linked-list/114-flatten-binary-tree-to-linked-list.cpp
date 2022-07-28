@@ -12,9 +12,8 @@
 class Solution {
 public:
     void preo(TreeNode* root, vector<TreeNode *> &pr){
-        if(root == NULL){
+        if(root == NULL)
             return;
-        }
         pr.push_back(root);
         if(root -> left) preo(root -> left, pr);
         if(root -> right) preo(root -> right, pr);
@@ -25,14 +24,12 @@ public:
         preo(root, pr);
         auto ans = new TreeNode(0);
         auto dummy = ans;
-        for(int i = 0; i < pr.size(); i++){
-            auto temp = pr[i];
-            ans -> right = temp;
+        for(auto node: pr){
+            ans -> right = node;
             ans -> left = NULL;
             ans = ans -> right;
         }
-        ans -> right = NULL;
-        ans -> left = NULL;
+        ans -> right = ans -> left = NULL;
         root = dummy -> right;
         return;
     }
