@@ -13,7 +13,7 @@ public:
     int len(ListNode *t){
         int cnt = 0;
         while(t){
-            cout << t -> val << endl;
+            // cout << t -> val << endl;
             t = t -> next;
             cnt++;
         }
