@@ -11,7 +11,7 @@ public:
                 curr_size++;
             }
             if(i != heights.size() -1) 
-                ans[i] = curr_size + (st.size() != 0);
+                ans[i] = curr_size + (!st.empty());
             st.push(i);
         }
     }
