@@ -5,10 +5,8 @@ public:
         for(int i = 0; i < s.size(); i++)
             f2[s[i]-'a']++;
         for(int i = 0; i < 26; i++){
-            if(f[i]){
-                if(f2[i] < f[i])
-                    return false;
-            }
+            if(f2[i] < f[i])
+                return false;
         }
         return true;
     }
@@ -19,9 +17,7 @@ public:
             vector<int> curr(26, 0);
             for(char c: w)
                 gf[c-'a'] = max(++curr[c - 'a'], gf[c-'a']);
-        }
-        // for(int i = 0; i < 26; i++)
-        //     cout << (char)('a' + i) << " "<< gf[i] << endl; 
+        } 
         for(string w: words1){
             if(check(gf, w))
                 ans.push_back(w);
