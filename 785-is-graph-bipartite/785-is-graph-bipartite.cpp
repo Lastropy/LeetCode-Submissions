@@ -6,8 +6,8 @@ public:
         queue<int> q;
         q.push(st);
         colour[st] =1;
-        while(!q.empty()){
-            auto temp = q.front(); q.pop();
+        for(q.push(st); !q.empty(); q.pop()){
+            auto temp = q.front();
             for(auto node: g[temp]){
                 if(colour[node] == colour[temp])
                     return false;
