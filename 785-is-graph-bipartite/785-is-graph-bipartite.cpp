@@ -4,7 +4,6 @@ public:
         if(colour[st] != -1) return true;
         
         queue<int> q;
-        q.push(st);
         colour[st] =1;
         for(q.push(st); !q.empty(); q.pop()){
             auto temp = q.front();
