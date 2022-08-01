@@ -1,10 +1,10 @@
 class Solution {
 public:
-    bool checkBipartite(vector<vector<int>> &g, int n, vector<int> &colour, int st){
+    bool checkBipartite(vector<vector<int>> &g, vector<int> &colour, int st){
+        if(colour[st] != -1) return true;
         queue<int> q;
         q.push(st);
         colour[st] = 1;
-        // int col = 0;
         while(!q.empty()){
             int temp = q.front(); q.pop();
             for(auto node: g[temp]){
@@ -28,11 +28,9 @@ public:
             g[v].push_back(u);
         }
         vector<int> colour(n + 1, -1);
-        for(int i= 0; i < g.size(); i++){
-            if(colour[i] == -1)
-                if(!checkBipartite(g, n, colour, i))
-                    return false;
-        }
+        for(int i= 0; i < g.size(); i++)
+            if(!checkBipartite(g, colour, i))
+                return false;
         return true;
     }
 };
