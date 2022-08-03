@@ -26,19 +26,19 @@ public:
         // }
         // return max(ans, sum);
         
-        int curr = 0;
-        int ans = INT_MIN;
-        int add = 0;
+        int normal_satisfaction = 0;
+        int max_satisfaction_if_behaving = INT_MIN;
+        int satisfaction_if_behaving = 0;
         for(int i = 0, j = 0; j < c.size(); j++){
-            curr += (!g[j]) * c[j];
-            add  += g[j] * c[j];
-            ans = max(add, ans);
+            normal_satisfaction  += (!g[j]) * c[j];
+            satisfaction_if_behaving  += g[j] * c[j];
+            max_satisfaction_if_behaving = max(satisfaction_if_behaving, max_satisfaction_if_behaving);
             if(j - i + 1 == k)
             {
-                add -= g[i] * c[i];
+                satisfaction_if_behaving -= g[i] * c[i];
                 i++;
             }
         }
-        return curr + ans;
+        return normal_satisfaction + max_satisfaction_if_behaving;
     }
 };
