@@ -1,12 +1,15 @@
 class Solution {
 public:
-     bool palin(string &s, int st, int e){
-        if(st >= e) return true;
-        return (s[st] == s[e]) && palin(s, st + 1, e - 1);
- 
+      bool palin(string &s, int i, int j){
+        while(i < j)
+        {
+            if(s[i] != s[j])
+                return false;
+            i++; j--;
+        }
+        return true; 
     }
     int f(string &s, int st, vector<int> &dp){
-
         if(st >= s.size() - 1) return 0;
         if(dp[st] != -1) return dp[st];
         
@@ -21,12 +24,9 @@ public:
         return dp[st] = ans;
     }
     int minCut(string s) {
-        vector<int> dp(s.size(), -1);
-        // vector<vector<int>> is(s.size(), vector<int>(s.size(), - 1));
-        // int res = f(s, 0, dp, is);
-        int res = f(s, 0, dp);
-
         int n = s.size();
+        vector<int> dp(n, -1);
+        int res = f(s, 0, dp);
         return min(n - 1, res);
     }
 };
