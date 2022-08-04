@@ -1,7 +1,6 @@
 class Solution {
 public:
     bool palin(string &s, int st, int e, vector<vector<int>> &is){
-        if(st == e) return true;
         if(is[st][e] != -1) return is[st][e];
         int i = st, j = e;
         while(i < j)
@@ -19,7 +18,7 @@ public:
         int curr = -1;
         int ans = INT_MAX;
         for(int i  = st; i < s.size();i++){
-            if(palin(s, st, i, is)){
+            if(i == st || palin(s, st, i, is)){
                 curr =  (i != s.size() - 1 ) + f(s, i + 1, dp, is);
                 ans = min(curr, ans);
             }
