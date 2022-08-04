@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isCycle(vector<vector<int>> &g, vector<int> visited, int st){
+    bool isCycle(vector<vector<int>> &g, vector<int> &visited, int st){
         if(visited[st] == 1) return true;
         if(visited[st] == 2) return false;
         visited[st] = 1;
@@ -10,8 +10,7 @@ public:
                 return true;
         }
         
-        
-        visited[st] = 0;
+        visited[st] = 2;
         return false;
     }
     bool canFinish(int n, vector<vector<int>>& preq) {
@@ -26,9 +25,6 @@ public:
         for(int i = 0; i < g.size() ; i++){
             if(isCycle(g, visited, i)){
                 return false;
-            }
-            else{
-                visited[i] = 2;
             }
         }
         return true;
