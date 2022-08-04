@@ -14,7 +14,7 @@ public:
         if(dp[st] != -1) return dp[st];
         
         int curr;
-        int ans = INT_MAX;
+        int ans = s.size();
         for(int i  = st; i < s.size();i++){
             if(palin(s, st, i)){
                 curr =  (i != s.size() - 1 ) + f(s, i + 1, dp);
