@@ -30,10 +30,8 @@ public:
         int curr = -1;
         int ans = INT_MAX;
         for(int i  = st; i < s.size();i++){
-            if(i == st || palin(s, st, i)){
-                // curr =  (i != s.size() - 1 ) + f(s, i + 1, dp, is);
+            if(palin(s, st, i)){
                 curr =  (i != s.size() - 1 ) + f(s, i + 1, dp);
-
                 ans = min(curr, ans);
             }
         }
