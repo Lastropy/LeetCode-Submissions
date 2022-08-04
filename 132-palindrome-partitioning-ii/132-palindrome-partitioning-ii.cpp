@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool palin(string &s, int st, int e, vector<vector<int>> &is){
+        if(st == e) return true;
         if(is[st][e] != -1) return is[st][e];
         int i = st, j = e;
         while(i < j)
