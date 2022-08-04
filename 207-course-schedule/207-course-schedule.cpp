@@ -14,19 +14,6 @@ public:
         visited[st] = 0;
         return false;
     }
-    bool cycle(vector<vector<int>> &g){
-        vector<int> visited(g.size(), 0);
-        
-        for(int i = 0; i < g.size() ; i++){
-            if(isCycle(g, visited, i)){
-                return true;
-            }
-            else{
-                visited[i] = 2;
-            }
-        }
-        return false;
-    }
     bool canFinish(int n, vector<vector<int>>& preq) {
         vector<vector<int>> g(n);
         for(auto p: preq){
@@ -34,8 +21,18 @@ public:
             g[u].push_back(v);
         }
         
-        return !cycle(g);
+        vector<int> visited(g.size(), 0);
         
+        for(int i = 0; i < g.size() ; i++){
+            if(isCycle(g, visited, i)){
+                return false;
+            }
+            else{
+                visited[i] = 2;
+            }
+        }
+        return true;
+                
         
         
     }
