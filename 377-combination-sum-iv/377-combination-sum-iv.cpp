@@ -6,6 +6,7 @@ public:
         if(dp[tar] != -1) return dp[tar];
         int ans = 0;
         for(int i = 0; i < a.size(); i++){
+            if(tar < a[i]) break;
             ans += f(a, tar - a[i], dp);
         }
         return dp[tar] = ans;
