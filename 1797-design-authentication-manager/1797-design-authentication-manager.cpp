@@ -2,14 +2,16 @@ class AuthenticationManager {
 public:
     int ttl;
     unordered_map<string, int> mp;
-    map<int, int> times;
+    // map<int, int> times;
+    multiset<int> times;
     AuthenticationManager(int timeToLive) {
         ttl = timeToLive;
     }
     
     void generate(string tokenId, int currentTime) {
         mp[tokenId] = currentTime + ttl;
-        times[mp[tokenId]]++;
+        // times[mp[tokenId]]++;
+        times.insert(mp[tokenId]);
     }
     
     void renew(string tokenId, int currentTime) {
@@ -18,22 +20,31 @@ public:
         int old_exp = mp[tokenId];
         int new_exp = currentTime + ttl;
         mp[tokenId] =  new_exp;
-        times[old_exp]--;
-        times[new_exp]++;
+        // for(int i: times){
+        //     cout << i << ",";
+        // }
+        // cout << endl;
+        times.erase(times.find(old_exp));
+        times.insert(mp[tokenId]);
+        // for(int i: times){
+        //     cout << i << ",";
+        // }
+        // cout << endl;
+        // times[old_exp]--;
+        // times[new_exp]++;
     }
     
     int countUnexpiredTokens(int currentTime) {
-       auto it = times.upper_bound(currentTime);
-       int ans = 0;
-        // cout <<"At " <<currentTime << endl;
-       while(it != times.end()){
-           ans += it -> second;
-           // cout << it -> first << " -> " << it -> second << endl;
-           advance(it, 1);
-       }
-        // cout << ans << endl;
-        // cout << "__________________" << endl;
-       return ans;
+        int ans = 0;
+//        auto it = times.upper_bound(currentTime);
+       
+//        while(it != times.end()){
+//            ans += it -> second;
+//            advance(it, 1);
+//        }
+        auto it = times.upper_bound(currentTime);
+        ans = times.size() - distance(times.begin(), it);
+        return ans;
     }
 };
 
