@@ -21,22 +21,23 @@ public:
 
 class Solution {
 public:
-    Node* dfs(Node *node, unordered_map<int, Node*> &visited){
+    unordered_map<int, Node*> visited;
+    Node* clone_using_dfs(Node *node){
         if(visited.count(node -> val)) return visited[node -> val];
+        
         auto new_n = new Node(node -> val);
         visited[node -> val] = new_n;
-        for(auto nei: node -> neighbors){
-            auto cloned_nei = dfs(nei, visited);
-            new_n -> neighbors.push_back(cloned_nei);
-        }
+        
+        for(auto neighbour: node -> neighbors)
+            new_n -> neighbors.push_back(clone_using_dfs(neighbour));
+        
         return new_n;
     }
     Node* cloneGraph(Node* node) {
         if(!node) return NULL;
-        auto ans = new Node(node -> val);
-        if(node -> neighbors.empty()) return ans;
-        unordered_map<int, Node*> visited;
-        ans = dfs(node, visited);
+        if(node -> neighbors.empty()) return new Node(node -> val);
+        
+        auto ans = clone_using_dfs(node);
         return ans;
     }
 };
