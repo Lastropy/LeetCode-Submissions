@@ -14,7 +14,7 @@ public:
             g[v[0]].insert(v[1]);
         vector<string> ans;
         dfs(g, ans, "JFK");
-        reverse(ans.begin(), ans.end());
+        reverse(begin(ans), end(ans));
         return ans;
     }
 };
