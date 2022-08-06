@@ -8,6 +8,6 @@ public:
             res *= nots;
             ans++;
         }
-        return ans;
+        return ceil(log(b) / log(nots));
     }
 };
