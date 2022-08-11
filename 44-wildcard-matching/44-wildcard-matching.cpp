@@ -4,9 +4,8 @@ public:
         if(j == 0 && i == 0) return true;
         if(j == 0) return dp[i][j] = false;
         if(i == 0){
-            int k = j;
-            while(k > 0 && t[k-1] == '*') k--;             
-            return dp[i][j] = (k == 0);
+            while(j > 0 && t[j-1] == '*') j--;             
+            return j == 0;
         }
 
         if(dp[i][j] != -1) return dp[i][j];
