@@ -1,24 +1,25 @@
 class Solution {
 public:
   
-    int f(vector<int> &a, int len, int prev, vector<vector<int>> &dp){
+    int f(vector<int> &a, int idx, int prev, vector<vector<int>> &dp){
         int n = a.size();
-        if(len > n) return 0;
+        if(idx == n) return 0;
         
-        if(dp[len][prev] != -1) return dp[len][prev];
+        if(dp[idx][prev+1] != -1) return dp[idx][prev+1];
         
         // not pick
-        int ans = 0 + f(a, len + 1, prev, dp);
+        int ans = 0 + f(a, idx + 1, prev, dp);
 
         // pick
-        if(prev == 0 || a[len - 1] > a[prev - 1])
-            ans = max(ans , 1 + f(a, len + 1, len, dp));
+        if(prev == -1 || a[idx] > a[prev])
+            ans = max(ans , 1 + f(a, idx + 1, idx, dp));
         
-        return dp[len][prev] = ans;        
+        return dp[idx][prev+1] = ans;        
     }
 
     int lengthOfLIS(vector<int>& nums) {
-        vector<vector<int>> dp(2501, vector<int>(2501, -1));
-        return f(nums, 1, 0, dp);
+        int n  = nums.size();
+        vector<vector<int>> dp(n, vector<int>(n + 1, -1));
+        return f(nums, 0, -1, dp);
     }
 };
