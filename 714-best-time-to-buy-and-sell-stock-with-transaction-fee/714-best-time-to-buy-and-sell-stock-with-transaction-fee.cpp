@@ -1,27 +1,25 @@
 class Solution {
 public:
-    int f(vector<int> &p, int idx, bool buy, int fee, vector<vector<int>> &dp){
+    int maxProfit(vector<int>& p, int fee) {
+        vector<vector<int>> dp(p.size(), vector<int>(2, -1));
         int n = p.size();
-        if(idx == n) return 0;
-        
-        if(dp[idx][buy] != -1) return dp[idx][buy];
-        
-        int ans = 0;
-        if(buy){
-            int b = -p[idx] + f(p, idx+1, 0, fee, dp);
-            int nb = 0 + f(p, idx+1, 1, fee, dp);
-            ans = max(b, nb);
+        vector<int> next(2, 0), curr(2, 0);
+        for(int idx = n-1; idx >= 0; idx--){
+
+            int b = -p[idx] + next[0];
+
+            int nb = 0 + next[1];
+
+            int s = p[idx] - fee + next[1];
+
+            int ns = 0 + next[0];
+
+            curr[0] = max(s, ns);
+
+            curr[1] = max(b, nb);
+            
+            next = curr;
         }
-        else{
-            int s = p[idx] - fee + f(p, idx+1, 1,fee, dp);
-            int ns = 0 + f(p, idx+1, 0,fee, dp);
-            ans = max(s, ns);
-        }
-        return dp[idx][buy] = ans;
-        
-    }
-    int maxProfit(vector<int>& prices, int fee) {
-        vector<vector<int>> dp(prices.size(), vector<int>(2, -1));
-        return f(prices, 0, 1, fee, dp);
+        return curr[1];
     }
 };
