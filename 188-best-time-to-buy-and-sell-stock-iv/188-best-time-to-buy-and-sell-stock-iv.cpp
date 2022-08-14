@@ -1,35 +1,41 @@
 class Solution {
 public:
-    int maxProfit(int k , vector<int>& p) {
+    int maxProfit(int k, vector<int>& p) {
         int n = p.size();
+        vector<vector<int>> curr(2, vector<int>(k+1, 0)), next(2, vector<int>(k+1, 0));
 
-        vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(2, vector<int>(k+1, 0)));
-        
         for(int idx = n-1; idx >= 0; idx--){
 
             for(int buy = 0; buy <= 1; buy++){
 
                 for(int lim = 0; lim <= k; lim++){
 
-                    if(lim == 0) // limit zero means can't buy anything now
-                        dp[idx][buy][lim] = 0;
+                    if(lim == 0) 
+                        curr[buy][lim] = 0;
+
                     else if(buy){
-                        int b = -p[idx] + dp[idx+ 1][0][lim];
+                        int b = -p[idx] + next[0][lim];
 
-                        int nb = 0 + dp[idx + 1][1][lim];
+                        int nb = 0 + next[1][lim];
 
-                        dp[idx][buy][lim] = max(b, nb);   
+                        curr[buy][lim] = max(b, nb);   
                     }
+
                     else{
-                        int s = p[idx] + dp[idx+ 1][1][lim-1];
+                        int s = p[idx] + next[1][lim-1];
 
-                        int ns = 0 + dp[idx + 1][0][lim];
+                        int ns = 0 + next[0][lim];
 
-                        dp[idx][buy][lim] = max(s, ns);  
+                        curr[buy][lim] = max(s, ns);  
                     }
+
                 }
+
             }
+
+            next = curr;
+
         }
-        return dp[0][1][k];
+        return curr[1][k];
     }
 };
