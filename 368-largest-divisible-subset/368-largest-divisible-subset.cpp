@@ -1,14 +1,17 @@
 class Solution {
 public:
     vector<int> largestDivisibleSubset(vector<int>& a) {
+        int n = a.size();
         sort(a.begin(), a.end());
-        vector<int> dp(a.size(), 1);
-        vector<int> hash(a.size());
-        for(int i  = 0; i < hash.size(); i++)
-            hash[i] = i;
-        for(int i  = 0; i < a.size(); i++){
+
+        vector<int> dp(n, 1);
+
+        vector<int> hash(n);
+        for(int i = 0; i < n; i++) hash[i] = i;
+
+        for(int i = 0; i < n; i++){
             for(int prev = 0; prev < i; prev++){
-                if(a[prev] % a[i] == 0 || a[i] % a[prev] == 0){
+                if(a[i] % a[prev] == 0){
                     if(dp[prev] + 1 > dp[i]){
                         dp[i] = 1 + dp[prev];
                         hash[i] = prev;
