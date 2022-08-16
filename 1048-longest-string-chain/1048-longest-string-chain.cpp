@@ -14,7 +14,7 @@ public:
     }
     int longestStrChain(vector<string>& w) {
         sort(begin(w), end(w), [&](string a, string b){
-          return a.size() == b.size() ? a < b: a.size() < b.size();  
+          return a.size() < b.size();  
         });
 
         vector<int> dp(w.size(), 1);
