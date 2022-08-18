@@ -9,14 +9,11 @@ public:
         
         sort(freq.begin(), freq.end());
         
-        int n = arr.size(), tar = arr.size() / 2, ans = 0;
+        int n = arr.size(), tar = arr.size() / 2, ptr = freq.size() - 1;
 
-        while(n > tar){
-            n -= freq.back();
-            freq.pop_back();
-            ans++;
-        }
+        while(n > tar)
+            n -= freq[ptr--];
 
-        return ans;
+        return freq.size() - 1 - ptr;
     }
 };
