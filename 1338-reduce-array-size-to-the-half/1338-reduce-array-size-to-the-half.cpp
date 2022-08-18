@@ -10,12 +10,11 @@ public:
 
             int ptr = freq.size() - 1 , ans = 0 ;
 
-            while(n > tar && ptr >= 0){
+            while(n > tar){
                 if(freq[ptr]){
-                    int req = ceil((double)(n - tar) / ptr);
-                    // cout << ptr << " -> " << req << endl;
-                    // cout << "_______________" << endl;
-                    int times = min(req, freq[ptr]);
+                    int required = ceil((double)(n - tar) / ptr);
+                    int have = freq[ptr];
+                    int times = min(required, have);
                     ans += times;
                     n -= (times * ptr);
                 }
