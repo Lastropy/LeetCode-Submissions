@@ -2,11 +2,7 @@ class Solution {
 public:
       bool palin(string &s, int i, int j){
         while(i < j)
-        {
-            if(s[i] != s[j])
-                return false;
-            i++; j--;
-        }
+            if(s[i++] != s[j--]) return false;
         return true; 
     }
     int f(string &s, int st, vector<int> &dp){
