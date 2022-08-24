@@ -9,7 +9,7 @@ public:
         // return l == n;
         
         double div = log10(n) / log10(3);
-        return (fmod(div, 1)) == 0.00000;
+        return (fmod(div, 1)) == 0;
         
     }
 };
