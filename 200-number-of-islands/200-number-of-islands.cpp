@@ -15,7 +15,6 @@ public:
             for(int j  = 0; j < grid[0].size(); j++){
                 if(grid[i][j] == '1'){
                     ans++;
-                    // cout << ans << " th island found at (" <<i<<","<<j<<")\n"; 
                     mark_by_dfs(grid,i, j);
                 }
             }
