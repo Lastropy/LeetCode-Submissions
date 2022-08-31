@@ -75,13 +75,13 @@ public:
         for(int i = 0; i < m; i++)
             connected(h, i, 0, INT_MIN, pac);
 
-        for(int j = 1; j < n; j++)
+        for(int j = 0; j < n; j++)
             connected(h, 0, j, INT_MIN, pac);
 
         for(int i = 0; i < m; i++)
             connected(h, i, n-1, INT_MIN, atl);
 
-        for(int j = 0; j < n-1; j++)
+        for(int j = 0; j < n; j++)
             connected(h, m-1, j, INT_MIN, atl);
 
         for(int i = 0; i < m; i++){
