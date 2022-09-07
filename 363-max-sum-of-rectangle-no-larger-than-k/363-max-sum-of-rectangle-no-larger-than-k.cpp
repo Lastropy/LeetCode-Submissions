@@ -12,7 +12,7 @@ public:
             auto pos = seen.lower_bound(ps - k);
             if(pos != seen.end())
                 ans = max(ans, ps - (*pos));
-           
+            if(ans == k) return ans;
             seen.insert(ps);
         }
 
