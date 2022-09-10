@@ -1,41 +1,28 @@
 class Solution {
 public:
-    int maxProfit(int k, vector<int>& p) {
+    int f(vector<int> &p, int idx, int k, bool buy, vector<vector<vector<int>>> &dp){
         int n = p.size();
-        vector<vector<int>> curr(2, vector<int>(k+1, 0)), next(2, vector<int>(k+1, 0));
-
-        for(int idx = n-1; idx >= 0; idx--){
-
-            for(int buy = 0; buy <= 1; buy++){
-
-                for(int lim = 0; lim <= k; lim++){
-
-                    if(lim == 0) 
-                        curr[buy][lim] = 0;
-
-                    else if(buy){
-                        int b = -p[idx] + next[0][lim];
-
-                        int nb = 0 + next[1][lim];
-
-                        curr[buy][lim] = max(b, nb);   
-                    }
-
-                    else{
-                        int s = p[idx] + next[1][lim-1];
-
-                        int ns = 0 + next[0][lim];
-
-                        curr[buy][lim] = max(s, ns);  
-                    }
-
-                }
-
-            }
-
-            next = curr;
-
+        if(idx == n || k == 0) return 0;
+        if(dp[idx][k][buy] != -1) return dp[idx][k][buy];
+        
+        int ans = 0;
+        
+        if(buy){
+            int b = -p[idx] + f(p, idx + 1, k, 0, dp);
+            int nb = 0 + f(p, idx + 1, k , 1, dp);
+            ans = max(b, nb);
         }
-        return curr[1][k];
+        else{
+            int s = p[idx] + f(p, idx + 1, k - 1, 1, dp);
+            int ns = 0 + f(p, idx+1, k, 0, dp);
+            ans = max(s, ns);
+        }
+        
+        return dp[idx][k][buy] = ans;
+    }
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(k + 1, vector<int>(2, - 1)));
+        return f(prices, 0, k, 1, dp);
     }
 };
