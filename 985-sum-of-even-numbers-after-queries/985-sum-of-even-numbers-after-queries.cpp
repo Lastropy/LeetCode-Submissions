@@ -9,11 +9,10 @@ public:
         for(auto q: queries){
             int val = q[0], idx = q[1];
             
-            int oldV = nums[idx];
+            if(nums[idx] % 2 == 0) s -= nums[idx];
             nums[idx] += val;
-            
-            if(oldV % 2 == 0) s -= oldV;
             if(nums[idx] % 2 == 0) s += nums[idx]; 
+            
             
             ans.push_back(s);
         }
