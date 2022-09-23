@@ -5,8 +5,9 @@ public:
         if(n == 1) return 1;
         int dig = log2(n) + 1;
         
-        long long ans =  (n + ((1LL * concatenatedBinary(n-1) << dig) % mod))% mod;
+        // long long ans =  (n + ((1LL * concatenatedBinary(n-1) << dig) % mod))% mod;
         
-        return ans;
+        // return ans;
+        return (n + ((1LL * concatenatedBinary(n-1) << dig) % mod))% mod;
     }
 };
