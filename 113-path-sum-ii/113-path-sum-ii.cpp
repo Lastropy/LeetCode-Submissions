@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    void f(TreeNode *root, int tar, vector<int> temp, vector<vector<int>> &ans){
+    void f(TreeNode *root, int tar, vector<int> &temp, vector<vector<int>> &ans){
         if(!root){ return;}
         
         tar -= root -> val;
@@ -25,6 +25,7 @@ public:
 
         f(root -> left, tar, temp, ans);
         f(root -> right, tar,temp, ans);
+        temp.pop_back();
      }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>> ans;
