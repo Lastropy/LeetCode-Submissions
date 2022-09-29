@@ -4,10 +4,10 @@ public:
         int n = arr.size();
         if(n == 1) return vector<int>({arr[0]});
         if(n == k) return arr;
-        if(x < arr[0])
-            return vector<int>(arr.begin(), arr.begin()+ k);
-        else if(x > arr[n -1])
-            return vector<int>(arr.begin() + n - k, arr.end());
+        // if(x < arr[0])
+        //     return vector<int>(arr.begin(), arr.begin()+ k);
+        // else if(x > arr[n -1])
+        //     return vector<int>(arr.begin() + n - k, arr.end());
         priority_queue<pair<int,int>> max_heap;
         vector<int> ans;
         for(int i = 0; i < n; i++){
