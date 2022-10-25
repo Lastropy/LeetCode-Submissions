@@ -25,7 +25,7 @@ private:
         return ans;
         
     }
-    bool cycle(vector<vector<int>> &g, int idx, vector<int> &visited){
+    bool cycleDFS(vector<vector<int>> &g, int idx, vector<int> &visited){
         int n = g.size();
         if(idx == n) return false;
         if(visited[idx] == 2) return false;
@@ -33,7 +33,7 @@ private:
         
         visited[idx] = 1;
         for(auto node: g[idx]){
-            if(cycle(g, node, visited))
+            if(cycleDFS(g, node, visited))
                 return true;
         }
         visited[idx] = 0;
@@ -44,14 +44,14 @@ private:
         int n = g.size();
         vector<int> visited(n, 0);
         
-        for(int i =0; i < n; i++){
-            if(cycle(g, i, visited))
+        for(int i = 0; i < n; i++){
+            if(cycleDFS(g, i, visited))
                 return true;
             else visited[i] = 2;
         }
-        return false;
-        
+        return false;  
     }
+    
 public:
     vector<int> findOrder(int n, vector<vector<int>>& preq) {
 
