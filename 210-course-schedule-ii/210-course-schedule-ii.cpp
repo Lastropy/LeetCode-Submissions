@@ -13,17 +13,13 @@ private:
             if(!indegree[i])
                 q.push(i);
         
-        for(count = 0; !q.empty();  ans.push_back(q.front()), q.pop(), count++){
-           
+        for(count = 0; !q.empty();  ans.push_back(q.front()), q.pop(), count++)
             for(auto node: g[q.front()])
                 if(!(--indegree[node])) 
                     q.push(node);
-            
-        }
 
-        
-        if(count != n) return {};
-        return ans;
+        if(count == n) return ans;
+        return {};
     }
 
  
