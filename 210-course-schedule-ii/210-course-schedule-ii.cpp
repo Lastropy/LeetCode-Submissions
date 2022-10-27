@@ -1,7 +1,7 @@
 class Solution {
 private:    
     vector<int> kahn_topo_sort(vector<vector<int>> &g){
-        int n = g.size(), count;
+        int n = g.size(), count=0;
         queue<int> q;
         vector<int> indegree(n, 0), ans;
         
@@ -13,7 +13,7 @@ private:
             if(!indegree[i])
                 q.push(i);
         
-        for(count = 0; !q.empty();  ans.push_back(q.front()), q.pop(), count++)
+        for(;!q.empty(); ans.push_back(q.front()), q.pop(), count++)
             for(auto node: g[q.front()])
                 if(!(--indegree[node])) 
                     q.push(node);
@@ -26,7 +26,7 @@ private:
     
 public:
     vector<int> findOrder(int n, vector<vector<int>>& preq) {
-
+        
         vector<vector<int>> g(n);
         
         for(int i= 0; i < preq.size(); i++)
