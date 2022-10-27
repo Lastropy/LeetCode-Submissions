@@ -13,16 +13,15 @@ private:
             if(!indegree[i])
                 q.push(i);
         
-        int count = 0;
+        int count;
         vector<int> ans;
-        for(; !q.empty(); q.pop(), count++){
-            auto u = q.front();
+        for(count = 0; !q.empty(); q.pop(), count++){
+            ans.push_back(q.front());
             
-            for(auto node: g[u])
+            for(auto node: g[q.front()])
                 if(!(--indegree[node])) 
                     q.push(node);
             
-            ans.push_back(u);
         }
 
         
