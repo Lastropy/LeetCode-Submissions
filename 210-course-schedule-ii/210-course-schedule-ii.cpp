@@ -1,62 +1,36 @@
 class Solution {
-private:
-    void dfs(vector<vector<int>> &g, int idx , vector<bool> &visited, stack<int> &st){
+private:    
+    vector<int> kahn_topo_sort(vector<vector<int>> &g){
         int n = g.size();
-        
-        if(idx == n) return;
-        if(visited[idx]) return;
-        
-        visited[idx] = 1;
-        
-        for(auto node: g[idx])
-            if(!visited[node])
-                dfs(g, node, visited, st);
-    
-        st.push(idx);
-    }
-    
-    vector<int> topo_sort(vector<vector<int>> &g, vector<bool> &visited, stack<int> &st){
-        int n = g.size();
+        queue<int> q;
+        vector<int> indegree(n, 0);
         
         for(int i = 0; i < n; i++)
-            if(!visited[i])
-                dfs(g, i, visited, st);
-
-          
+            for(auto node : g[i])
+                indegree[node]++;
+        
+        for(int  i = 0; i < n; i++)
+            if(!indegree[i])
+                q.push(i);
+        
+        int count = 0;
         vector<int> ans;
-        while(!st.empty())
-            ans.push_back(st.top()), st.pop();
+        for(; !q.empty(); q.pop(), count++){
+            auto u = q.front();
+            
+            for(auto node: g[u])
+                if(!(--indegree[node])) 
+                    q.push(node);
+            
+            ans.push_back(u);
+        }
+
+        
+        if(count != n) return {};
         return ans;
-        
-    }
-    bool cycleDFS(vector<vector<int>> &g, int idx, vector<int> &visited){
-        int n = g.size();
-        
-        if(idx == n) return false;
-        if(visited[idx] == 2) return false;
-        if(visited[idx] == 1) return true;
-        
-        visited[idx] = 1;
-        
-        for(auto node: g[idx])
-            if(cycleDFS(g, node, visited))
-                return true;
-        
-        visited[idx] = 2;
-        return false;
     }
 
-    bool cycleDetect(vector<vector<int>> &g){
-        int n = g.size();
-        
-        vector<int> visited(n, 0);
-        
-        for(int i = 0; i < n; i++)
-            if(cycleDFS(g, i, visited)) 
-                return true;
-        
-        return false;  
-    }
+ 
     
 public:
     vector<int> findOrder(int n, vector<vector<int>>& preq) {
@@ -65,12 +39,7 @@ public:
         
         for(int i= 0; i < preq.size(); i++)
             g[preq[i][1]].push_back(preq[i][0]);
-        
-        
-        if(cycleDetect(g)) return {};
-        
-        vector<bool> visited(n, false);
-        stack<int> helperStack;
-        return topo_sort(g, visited, helperStack);
+       
+        return kahn_topo_sort(g);
     }
 };
