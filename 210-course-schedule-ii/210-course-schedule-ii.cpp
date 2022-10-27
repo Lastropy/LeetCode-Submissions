@@ -1,9 +1,9 @@
 class Solution {
 private:    
     vector<int> kahn_topo_sort(vector<vector<int>> &g){
-        int n = g.size();
+        int n = g.size(), count;
         queue<int> q;
-        vector<int> indegree(n, 0);
+        vector<int> indegree(n, 0), ans;
         
         for(int i = 0; i < n; i++)
             for(auto node : g[i])
@@ -13,11 +13,8 @@ private:
             if(!indegree[i])
                 q.push(i);
         
-        int count;
-        vector<int> ans;
-        for(count = 0; !q.empty(); q.pop(), count++){
-            ans.push_back(q.front());
-            
+        for(count = 0; !q.empty();  ans.push_back(q.front()), q.pop(), count++){
+           
             for(auto node: g[q.front()])
                 if(!(--indegree[node])) 
                     q.push(node);
