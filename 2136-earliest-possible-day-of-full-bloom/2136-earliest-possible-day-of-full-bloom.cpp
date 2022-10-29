@@ -7,9 +7,10 @@ public:
             log.push_back({g[i], p[i]});
         }
         
-        sort(log.begin(), log.end(), [&](vector<int> &a, vector<int> &b){
-            return a[0] > b[0];
-        });
+        sort(log.rbegin(), log.rend());
+        // , [&](vector<int> &a, vector<int> &b){
+        //     return a[0] > b[0];
+        // });
         
         int curr = 0, ans = INT_MIN;
         for(auto l: log){
