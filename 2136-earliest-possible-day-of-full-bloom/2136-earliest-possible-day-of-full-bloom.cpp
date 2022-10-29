@@ -13,8 +13,9 @@ public:
         
         int curr = 0, ans = INT_MIN;
         for(auto l: log){
-            curr += l[1];
-            ans = max(ans, curr + l[0]);
+            int pt = l[1], gt = l[0];
+            ans = max(ans, curr + pt + gt);
+            curr += pt;
         }
         return ans;
     }
