@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int diff(string &a, string &b){
+    bool diff(string &a, string &b){
         if(a== b) return 0;
         int ans = 0;
         for(int i =0; i < 8 && ans < 2; i++)
