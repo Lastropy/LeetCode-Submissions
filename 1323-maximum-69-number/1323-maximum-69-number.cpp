@@ -1,13 +1,17 @@
 class Solution {
 public:
     int maximum69Number (int num) {
-        string s = to_string(num);
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] == '6'){
-                s[i] = '9';
+        int nod = log10(num);
+        int base = pow(10, nod);
+
+        while(base){
+            // cout << (num / base) % 10 << endl;
+            if((num / base) % 10 == 6){
+                num += 3 * base;
                 break;
             }
+            base /= 10;
         }
-        return stoi(s);
+        return num;
     }
 };
