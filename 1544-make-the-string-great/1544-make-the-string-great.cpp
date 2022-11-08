@@ -1,18 +1,15 @@
 class Solution {
 public:
     string makeGood(string s) {
-        string prev = "";
-        string curr = s;
-        while(curr != prev ){
-            prev = curr;
-            for(int i=1; i < curr.size(); i++){
-                if(tolower(curr[i]) == tolower(curr[i-1])){
-                    if((isupper(curr[i]) && islower(curr[i-1])) ||
-                        islower(curr[i]) && isupper(curr[i-1]))
-                        curr.erase(i-1,2);
-                }
-            }
+        if(s.size() == 1) return s;
+        int p1, p2;
+        for(p1 = 0, p2 = 0; p2 < s.size(); p2++){
+            if(p1 > 0 && abs(s[p1 - 1] - s[p2]) == 32)
+                --p1;
+            else
+                s[p1++] = s[p2];
         }
-        return curr;
+        
+        return s.substr(0, p1);
     }
 };
