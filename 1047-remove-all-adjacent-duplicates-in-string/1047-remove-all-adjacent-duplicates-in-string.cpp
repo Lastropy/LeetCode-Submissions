@@ -1,14 +1,11 @@
 class Solution {
 public:
     string removeDuplicates(string s) {
-        string ans = "";
-        for(char c: s){
-            if(!ans.empty() && ans.back() == c){
-                ans.erase(ans.size() - 1, 1);
-                continue;
-            }
-            ans += c;
+        int sp = 0;
+        for(int i = 0; i < s.size(); i++){
+            if(sp > 0 && s[sp - 1] == s[i]) sp--;
+            else s[sp++] = s[i];
         }
-        return ans;
+        return s.substr(0, sp);
     }
 };
