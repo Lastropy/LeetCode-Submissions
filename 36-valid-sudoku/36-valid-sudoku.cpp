@@ -1,49 +1,27 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        set<char> s;
+        vector<int> s1(10, 0), s2(10, 0);
+        vector<vector<int>> s3(9, vector<int>(10, 0));
         
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
                 if(isdigit(board[i][j])){
-                    if(s.find(board[i][j]) != s.end())
+                    int key = ((i / 3) * 3 + (j / 3));
+                    int val = board[i][j] - '0';
+                    if(s1[val] || s3[key][val])
                         return false;
-                    s.insert(board[i][j]);
+                    s1[val] = s3[key][val] = 1;
                 }
-            }
-            s.clear();
-        }
-        
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
                 if(isdigit(board[j][i])){
-                    if(s.find(board[j][i]) != s.end())
+                    int val2 = board[j][i] - '0';
+                    if(s2[val2])
                         return false;
-                    s.insert(board[j][i]);
-                }
+                    s2[val2] = 1;
+                } 
             }
-            s.clear();
+            s1 = s2 = vector<int>(10, 0);
         }
-        
-        
-        unordered_map<int, set<int>> mp;
-        
-        for(int i =0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                if(!isdigit(board[i][j])) continue;
-                int key = (i / 3) * 10 + (j / 3);
-                
-                if(mp[key].find(board[i][j]) != mp[key].end())
-                    return false;
-                
-                mp[key].insert(board[i][j]);
-            }
-        }
-        
-        
-        
-        
         return true;
-        
     }
 };
