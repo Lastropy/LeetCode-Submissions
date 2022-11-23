@@ -26,12 +26,12 @@ public:
         }
         
         
-        unordered_map<string, set<int>> mp;
+        unordered_map<int, set<int>> mp;
         
         for(int i =0; i < 9; i++){
             for(int j = 0; j < 9; j++){
                 if(!isdigit(board[i][j])) continue;
-                string key = to_string(i / 3) + to_string(j / 3);
+                int key = (i / 3) * 10 + (j / 3);
                 
                 if(mp[key].find(board[i][j]) != mp[key].end())
                     return false;
