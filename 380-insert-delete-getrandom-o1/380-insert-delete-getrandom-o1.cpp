@@ -1,18 +1,20 @@
 class RandomizedSet {
 private:
     unordered_set<int> s;
-    int size;
+    // int size;
     
 public:
     RandomizedSet() {
-        size = 0;
+        // size = 0;
+        // srand(time(0));
+        
     }
     
     bool insert(int val) {
         if(s.find(val) != s.end())
             return false;
         s.insert(val);
-        size++;
+        // size++;
         return true;
     }
     
@@ -20,14 +22,13 @@ public:
         if(s.find(val) == s.end())
             return false;
         s.erase(val);
-        size--;
+        // size--;
         return true;
     }
     
     int getRandom() {
-        // srand(time(0));
         
-        int pos = (rand()) % size;
+        int pos = (rand()) % (s.size());
         auto it = s.begin();
         advance(it, pos);
         return (*it);
