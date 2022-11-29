@@ -1,6 +1,6 @@
 class RandomizedSet {
 private:
-    set<int> s;
+    unordered_set<int> s;
     int size;
     
 public:
