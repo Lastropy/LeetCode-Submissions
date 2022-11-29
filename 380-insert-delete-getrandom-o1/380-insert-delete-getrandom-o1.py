@@ -1,12 +1,12 @@
 import random
 class RandomizedSet:
     def __init__(self):
-        self.s=set()
+        self.s=[]
 
     def insert(self, val: int) -> bool:
         if val in self.s:
             return False
-        self.s.add(val)
+        self.s.append(val)
         return True
 
     def remove(self, val: int) -> bool:
@@ -17,12 +17,5 @@ class RandomizedSet:
         
 
     def getRandom(self) -> int:
-        return random.choice(tuple(self.s))
+        return random.choice(self.s)
         
-
-
-# Your RandomizedSet object will be instantiated and called as such:
-# obj = RandomizedSet()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
