@@ -1,21 +1,14 @@
 class Solution {
 public:
-    TreeNode* ans;
-    void arrange(TreeNode* root){
-        if(!root) return;
+    TreeNode* arrange(TreeNode* root, TreeNode* tail = NULL){
+        if(!root) return tail;
         
-        arrange(root -> left);
+        auto res = arrange(root -> left, root);
         root -> left = NULL;
-        ans -> right = root;
-        ans = ans -> right;
-        arrange(root -> right);
-        
-        
+        root -> right = arrange(root -> right, tail);
+        return res;
     }
     TreeNode* increasingBST(TreeNode* root) {
-        ans = new TreeNode();
-        auto ans2 = ans;
-        arrange(root);
-        return ans2 -> right;
+        return arrange(root);
     }
 };
