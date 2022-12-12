@@ -6,26 +6,19 @@ public:
         int lmax = dfs(root -> left, res);
         int rmax = dfs(root -> right, res);
         
-        int curr = 1, ans = 1;
-        if(lmax && root -> left -> val == root -> val)
-        {
-            curr += lmax;
-            ans = max(ans, 1 + lmax);           
-        }   
-        if(rmax && root -> right -> val == root -> val)
-        {
-            curr += rmax;
-            ans = max(ans, 1 + rmax);
-        }
+        int cl = 0,cr = 0;
+        if(root -> left && root -> left -> val == root -> val)
+            cl = lmax + 1;         
+        if(root -> right && root -> right -> val == root -> val)
+            cr = rmax + 1;
         
-        res = max(res, curr);
+        res = max(res, cl + cr);
         
-        return ans; 
+        return max(cl, cr); 
     }
     int longestUnivaluePath(TreeNode* root) {
-        if(!root) return 0;
         int ans = 0;
-        dfs(root, ans);        
-        return ans-1;
+        if(root) dfs(root, ans);        
+        return ans;
     }
 };
