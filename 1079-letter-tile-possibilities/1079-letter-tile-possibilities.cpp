@@ -3,22 +3,26 @@ public:
     vector<int> fact = {1, 1, 2, 6, 24, 120, 720, 5040};
     unordered_set<string> seen;
     
-    int uniquePerm(string &seq){
-        vector<int> cnt(26, 0);
-        for(char c: seq)
-            cnt[c - 'A']++;
-        int ans = fact[seq.size()];
+    int uniquePerm( vector<int> &cnt){
+        int len = 0;
+        for(int i: cnt) len += i;
+        int ans = fact[len];
         for(int i: cnt) ans /= fact[i];
         return ans;
     }
-    int dfs(string &s, string seq = "", int pos = 0){
+    int dfs(string &s, vector<int> cnt = vector<int>(26, 0), int pos = 0){
         if(pos >= s.size()){
-            if(!seen.insert(seq).second) return 0;
-            return uniquePerm(seq);
+            string hash = "";
+            for(int i: cnt)
+                hash += string(1, i) + "_";
+            if(!(seen.insert(hash).second)) return 0;
+            return uniquePerm(cnt);
         }
         
-        int take = dfs(s, seq + s[pos], pos + 1);
-        int ntake = dfs(s, seq , pos + 1);
+        cnt[s[pos] - 'A']++;
+        int take = dfs(s, cnt, pos + 1);
+        cnt[s[pos] - 'A']--;
+        int ntake = dfs(s, cnt , pos + 1);
         return take + ntake;
     }
     
