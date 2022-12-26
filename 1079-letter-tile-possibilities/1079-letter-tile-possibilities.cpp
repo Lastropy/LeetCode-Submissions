@@ -13,8 +13,7 @@ public:
     }
     int dfs(string &s, string seq = "", int pos = 0){
         if(pos >= s.size()){
-            if(seen.find(seq) != seen.end()) return 0;
-            seen.insert(seq);
+            if(!seen.insert(seq).second) return 0;
             return uniquePerm(seq);
         }
         
