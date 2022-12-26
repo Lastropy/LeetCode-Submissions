@@ -6,7 +6,7 @@ public:
         if(dp[idx] != -1) return dp[idx];
         
         dp[idx] = 0;
-        for(int ss = 1; ss <= a[idx]; ss++){
+        for(int ss = a[idx]; ss >= 0; ss--){
             dp[idx] = solve(a, idx+ss, dp);
             if(dp[idx]) break;
         }
