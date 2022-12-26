@@ -10,12 +10,15 @@ public:
         for(int i: cnt) ans /= fact[i];
         return ans;
     }
+    string getHash(vector<int> &cnt){
+        string hash = "";
+        for(int i: cnt)
+            hash += string(1, i + '0') + "_";
+        return hash;
+    }
     int dfs(string &s, vector<int> cnt = vector<int>(26, 0), int pos = 0){
         if(pos >= s.size()){
-            string hash = "";
-            for(int i: cnt)
-                hash += string(1, i) + "_";
-            if(!(seen.insert(hash).second)) return 0;
+            if(!(seen.insert(getHash(cnt)).second)) return 0;
             return uniquePerm(cnt);
         }
         
