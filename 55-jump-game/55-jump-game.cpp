@@ -1,13 +1,14 @@
 class Solution {
 public:
     bool solve(vector<int> &a, int idx, vector<int> &dp){
-        if(idx >= a.size()-1) return true;
+        if(idx == a.size()-1) return true;
+        if(idx >= a.size() || a[idx] == 0) return false;
         if(dp[idx] != -1) return dp[idx];
         
         dp[idx] = 0;
         for(int ss = 1; ss <= a[idx]; ss++){
             dp[idx] = solve(a, idx+ss, dp);
-            if(dp[idx] == 1) break;
+            if(dp[idx]) break;
         }
         return dp[idx];
     }
