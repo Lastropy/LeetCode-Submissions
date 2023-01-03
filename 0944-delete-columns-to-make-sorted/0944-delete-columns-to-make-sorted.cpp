@@ -5,16 +5,15 @@ public:
         
         int n = strs.size();
         int m = strs[0].size();
-        unordered_set<int> ignore;
-        for(int i = 0; i < n-1; i++){
-            for(int j = 0; j < m; j++){
-                    // cout << i << ' ' << j << endl;
-                if(ignore.count(j)) continue;
-                if(strs[i][j] > strs[i+1][j]){
-                    ignore.insert(j);
+        int ans = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n-1; j++){
+                if(strs[j][i] > strs[j+1][i]){
+                    ans++;
+                    break;
                 }
             }
         }
-        return ignore.size();
+        return ans;
     }
 };
