@@ -4,12 +4,19 @@ public:
         unordered_map<string, int> mp;
         int n = a.size(), ans = 0;
         
-        for(int i = 0; i< n; i++){
-            if(t.find(a[i]) == 0)
-                ans += mp[t.substr(a[i].size())];
-            if(t.rfind(a[i]) == t.size() - a[i].size())
-                 ans += mp[t.substr(0,  t.size() - a[i].size())];
-            mp[a[i]]++;
+        for(string i: a){
+            if(i.size() < t.size())
+                mp[i]++;
+        }
+        
+        
+        for(auto [s, freq]: mp){
+            if(t.find(s) == 0){
+                if(s + s == t)
+                    ans += freq * (freq - 1);
+                else
+                    ans += freq * mp[t.substr(s.size())];
+            }
         }
         return ans;
     }
