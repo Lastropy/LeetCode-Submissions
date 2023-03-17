@@ -1,8 +1,29 @@
 class node {
-public: 
+private: 
     node* next[26] = {NULL};
     bool is_word = false;
+public:
+    bool doesExist(char c){
+        return !!(this -> next[c]);
+    }
+    
+    void makeExist(char c){
+        this -> next[c] = new node();
+    } 
+    
+    node* moveForward(char c){
+        return this -> next[c];
+    }
+    void isWord(){
+        this -> is_word = true;
+    }
+    
+    bool checkIfWord(){
+        return this -> is_word;
+    }
+    
 };
+
 
 class Trie {
 private:
@@ -14,30 +35,30 @@ public:
     
     void insert(string s) {
         auto temp = this -> curr;
-        for(int i=0; i < s.size(); i++){
-            if(!temp-> next[s[i] - 'a'])
-                temp -> next[s[i] - 'a'] = new node();
-            temp = temp -> next[s[i] - 'a'];
+        for(char c: s){
+            if(!temp-> doesExist(c - 'a'))
+                temp -> makeExist(c- 'a');
+            temp = temp -> moveForward(c - 'a');
         }
-        temp -> is_word = true;
+        temp -> isWord();
     }
     
     bool search(string s) {
         auto temp = this -> curr;
-        for(int i = 0; i < s.size(); i++){
-            if(!temp -> next[s[i] -'a'])
+        for(char c: s){
+            if(!temp-> doesExist(c - 'a'))
                 return false;
-            temp = temp -> next[s[i]  - 'a'];
+            temp = temp -> moveForward(c - 'a');
         }
-        return temp -> is_word;
+        return temp -> checkIfWord();
     }
     
     bool startsWith(string s) {
         auto temp = this -> curr;
-        for(int i = 0; i < s.size(); i++){
-            if(!temp -> next[s[i] -'a'])
+        for(char c: s){
+            if(!temp-> doesExist(c - 'a'))
                 return false;
-            temp = temp -> next[s[i]  - 'a'];
+            temp = temp -> moveForward(c - 'a');
         }
         return true;
     }
