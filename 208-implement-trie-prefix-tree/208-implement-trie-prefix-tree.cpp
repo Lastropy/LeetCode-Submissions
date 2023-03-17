@@ -28,6 +28,15 @@ public:
 class Trie {
 private:
     node* curr;
+    bool find(string &s, bool checkForPrefix = true){
+        auto temp = this -> curr;
+        for(char c: s){
+            if(!temp-> doesExist(c - 'a'))
+                return false;
+            temp = temp -> moveForward(c - 'a');
+        }
+        return (checkForPrefix ? true:  temp -> checkIfWord());
+    }
 public:
     Trie() {
         this -> curr = new node();
@@ -44,22 +53,10 @@ public:
     }
     
     bool search(string s) {
-        auto temp = this -> curr;
-        for(char c: s){
-            if(!temp-> doesExist(c - 'a'))
-                return false;
-            temp = temp -> moveForward(c - 'a');
-        }
-        return temp -> checkIfWord();
+         return this -> find(s , false);
     }
     
     bool startsWith(string s) {
-        auto temp = this -> curr;
-        for(char c: s){
-            if(!temp-> doesExist(c - 'a'))
-                return false;
-            temp = temp -> moveForward(c - 'a');
-        }
-        return true;
+          return this -> find(s);
     }
 };
