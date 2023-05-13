@@ -20,12 +20,12 @@ public:
         dp[0] = 1;
           
         int ans = 0;
-        for(int i = 1; i <= h; i++){
+        for(int i = l; i <= h; i++){
             goodStringsWithSizeEqualTo(i, z, o);
-            if(i >= l){
+        
                 ans += dp[i];
                 ans %= mod;
-            }
+    
         }
         return ans;
         
