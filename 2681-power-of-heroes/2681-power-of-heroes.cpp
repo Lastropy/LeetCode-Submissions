@@ -7,9 +7,9 @@ public:
         
         long long ans = 0;
         long long s = 0;
-        for(int l = 0; l < n; l++){
-            ans = (ans + ( s + a[l]) * a[l] % mod  * a[l] % mod) % mod;
-            s = (2*s + a[l]) % mod;
+        for(int ele: a){
+            ans = (ans + ( s + ele ) * ele % mod  * ele % mod) % mod;
+            s = (2*s + ele) % mod;
         }
         return ans;
     }
