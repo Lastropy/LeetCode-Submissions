@@ -6,10 +6,10 @@ public:
         int n = a.size();
         
         long long ans = 0;
-        long long s = 0;
+        long long prev = 0;
         for(int ele: a){
-            ans = (ans + ( s + ele ) * ele % mod  * ele % mod) % mod;
-            s = (2*s + ele) % mod;
+            ans = (ans + ( prev + ele ) * ele % mod  * ele % mod) % mod;
+            prev = (2*prev + ele) % mod;
         }
         return ans;
     }
