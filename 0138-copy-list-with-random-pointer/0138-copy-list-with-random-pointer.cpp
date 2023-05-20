@@ -18,30 +18,37 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
         if(!head) return NULL;
-        auto ans = new Node(0);
-        auto curr = ans;
-        auto curr2 = head;
-        while(curr2){
-            curr -> next = new Node(curr2 -> val);
-            curr = curr -> next;
-            curr -> random = curr2;
-            auto temp = curr2 -> next;
-            curr2 -> next = curr;
-            curr2 = temp;
-        }
-        unordered_map<Node *, Node *> mp;
-        curr = ans -> next;
+        auto curr = head;
+        
+        // STEP - 1
         while(curr){
-            mp[curr -> random] = curr -> next ? curr -> next -> random: NULL;
-            if(curr -> random -> random)
-                curr -> random = curr -> random -> random -> next;
-            else
-                curr -> random = NULL;
+            auto nxt = curr -> next;
+            curr -> next = new Node(curr -> val);
+            curr -> next -> next = nxt;
+            curr = nxt;
+        }
+        
+        // STEP - 2
+        curr = head;
+        while(curr){
+            curr -> next -> random = curr -> random ? curr -> random -> next : NULL;
+            curr = curr -> next -> next;
+        }
+        
+        // STEP - 3
+        curr = head;
+        auto ans = curr -> next;
+        while(curr){
+            auto nxt = curr -> next;
+            curr -> next = curr -> next -> next;
+            nxt -> next = nxt -> next ? nxt -> next -> next : NULL;
+            nxt = nxt -> next;
             curr = curr -> next;
         }
         
-        for(auto [k, v]: mp)
-            k -> next = v;
-        return ans -> next;
+        return ans;
+        
+        
+        
     }
 };
