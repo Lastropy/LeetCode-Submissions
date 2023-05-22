@@ -19,17 +19,17 @@ public:
             if(curr -> val == curr -> next -> val){
                 int v = curr -> val;
                 while(curr && curr -> val == v){
+                    auto temp = curr;
                     if(prev){
-                        auto temp = curr;
                         prev -> next = curr -> next;
-                        delete temp;
                         curr = prev -> next;
-                    }else{
-                        auto temp = head;
-                        head = head -> next;
-                        delete temp;
+                    } 
+                    else
+                    {
+                        head = curr -> next;
                         curr = head;
                     }
+                    delete temp;
                 }
             }
             else{
