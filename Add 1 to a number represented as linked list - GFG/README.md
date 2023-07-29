@@ -1,5 +1,5 @@
 # Add 1 to a number represented as linked list
-## Easy
+## Medium
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">A number&nbsp;<strong>N</strong>&nbsp;is represented in Linked List such that each digit corresponds to a node in linked list. You need to add 1 to it.</span></p>
 <p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
 <pre><span style="font-size: 18px;"><strong>Input:
