@@ -18,7 +18,7 @@ struct Node
 void printList(Node* node) 
 { 
     while (node != NULL) { 
-        cout << node->data; 
+        cout << node->data%10; 
         node = node->next; 
     }  
     cout<<"\n";
@@ -46,29 +46,35 @@ struct Node
 class Solution
 {
     private:
-    int adder(Node * curr){
-        if(curr == NULL) return 0;
-        int carry = adder(curr -> next);
-        if(curr -> next == NULL)
-            curr -> data += 1;
-        curr -> data += carry;
-        carry = curr -> data / 10;
-        curr -> data %= 10;
-        return carry;
-    }    
-    
+    Node* reverse(Node* h){
+        if(!h || !h -> next) return h;
+        auto curr = h, nxt = h -> next;
+        Node* prev = NULL;
+        while(curr){
+            curr -> next = prev;
+            prev = curr;
+            curr = nxt;
+            if(nxt) nxt = nxt -> next;
+        }
+        return prev;
+    }
     public:
     Node* addOne(Node *head) 
     {
-        // Your Code here
-        // return head of list after adding one
-        int carry = adder(head);
-        if(carry){
-            auto newNode = new Node(carry);
-            newNode -> next = head;
-            head = newNode;
-        }
-        return head;
+       if(!head) return head;
+       auto curr = reverse(head);
+       auto curr2 = curr;
+       Node *prev = NULL;
+       int carry = 1;
+       while(carry){
+           if(curr) carry += curr -> data;
+           else{ prev -> next = new Node(0); curr = prev -> next;}
+           curr -> data = carry % 10;
+           prev = curr;
+           curr = curr -> next;
+           carry /= 10;
+       }
+       return reverse(curr2);
     }
 };
 
