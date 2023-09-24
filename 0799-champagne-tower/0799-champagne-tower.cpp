@@ -1,7 +1,7 @@
 class Solution {
 private:
-    int tar_row;
     void equate(int r, vector<vector<double>> &dp){
+        if(r > dp.size() - 2) return;
         for(int i = 0; i <= r; i++){
             if(dp[r][i] >= 1){
                 double excess = dp[r][i] -1;
@@ -10,12 +10,11 @@ private:
                 dp[r][i] = 1;
             }
         }
-        if(r < tar_row) equate(r + 1, dp);
+        equate(r + 1, dp);
     }
 public:
     double champagneTower(int poured, int r, int g) {
-        vector<vector<double>> dp(101, vector<double>(101, 0.00));
-        tar_row = r;
+        vector<vector<double>> dp(r+2, vector<double>(r+2, 0.00));
         dp[0][0] = poured;
         equate(0, dp);
         return dp[r][g];
