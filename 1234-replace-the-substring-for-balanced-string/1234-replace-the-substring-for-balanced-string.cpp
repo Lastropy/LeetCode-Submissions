@@ -27,12 +27,9 @@ public:
         // step - 3
         int ans = n;
         for(int i =0, j= 0; j< n; j++){
-            if(mp.count(s[j]))
-                mp[s[j]]--;
+            mp[s[j]]--;
             while(mp['Q'] <= 0 && mp['R'] <= 0 && mp['W'] <= 0 && mp['E'] <= 0){
-                if(mp.count(s[i])){
-                    mp[s[i]]++;
-                }
+                mp[s[i]]++;
                 ans = min(ans, j - i + 1);
                 i++;
             }
