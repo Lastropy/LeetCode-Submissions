@@ -1,22 +1,24 @@
 class Solution {
 public:
     int shortestSubarray(vector<int>& a, int k) {
-        int n = a.size();
-        long long pref_sum = 0;
-        int ans = INT_MAX;
+        int n = a.size(), ans = INT_MAX;
+        deque<int> dq;
         
-        priority_queue<pair<long long, int>, vector<pair<long long,int>>, greater<pair<long long, int>>> min_heap;
-        min_heap.push({0, -1});
-        
-        
+        vector<long> pref_sum(n + 1, 0);
         for(int i = 0; i < n; i++){
-            pref_sum += a[i];
-            while(!min_heap.empty() && pref_sum - min_heap.top().first >= k){
-                ans = min(ans, i - min_heap.top().second);
-                min_heap.pop();
-            }
-            min_heap.push({pref_sum, i});
+            pref_sum[i+1] = pref_sum[i] + a[i];
         }
-        return ans == INT_MAX ? -1 : ans;
+        
+        for(int i = 0; i <= n; i++){
+            while(!dq.empty() && pref_sum[i] - pref_sum[dq.front()] >= k){
+                ans = min(ans, i - dq.front());
+                dq.pop_front();
+            }
+            
+            while(!dq.empty() && pref_sum[i] <= pref_sum[dq.back()])
+                dq.pop_back();
+            dq.push_back(i);
+        }
+        return ans == INT_MAX ? - 1: ans;
     }
 };
