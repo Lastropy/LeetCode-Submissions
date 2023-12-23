@@ -49,23 +49,21 @@ class Solution
     { 
         if(!h || k == 1) return h;
         struct node* first = h;
-        struct node* prev = NULL;
+        struct node* prevLast = NULL;
         while(first){
-           auto last = first;
-           for(int i = 1; i < k && last; i++) 
-                last = last -> next;
-           if(!last){
-               if(prev) prev -> next = rev(first);
-               else h = rev(first);
-               break;
+           auto kTH_Node = first;
+           for(int i = 1; i < k && kTH_Node; i++) 
+                kTH_Node = kTH_Node -> next;
+           struct node* nxt = NULL;
+           if(kTH_Node){
+                nxt = kTH_Node -> next;
+                kTH_Node -> next = NULL;
            }
-           auto nxt = last -> next;
-           last -> next = NULL;
-           last = rev(first);
-           if(prev == NULL) h = last;
-           else prev -> next = last;
+           kTH_Node = rev(first);
+           if(prevLast == NULL) h = kTH_Node;
+           else prevLast -> next = kTH_Node;
            first -> next = nxt;
-           prev = first;
+           prevLast = first;
            first = nxt;
         }
         return h;
