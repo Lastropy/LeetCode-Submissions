@@ -1,14 +1,15 @@
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
-        ListNode* ans = new ListNode(0);
-        auto ans2 = ans;
         auto curr = head;
+        auto curr2 = head;
+        ListNode* prev = NULL;
         int sum = 0;
         while(curr){
             if(curr -> val == 0 && curr != head){
-                ans -> next = new ListNode(sum);
-                ans = ans -> next;
+                curr2 -> val = sum;
+                prev = curr2;
+                curr2 = curr2 -> next;
                 sum = 0;
             }
             else {
@@ -16,6 +17,12 @@ public:
             }
             curr = curr -> next;
         }
-        return ans2 -> next;
+        prev -> next = NULL;        
+        while(curr2){
+            auto temp = curr2;
+            curr2 = curr2 -> next;
+            delete temp;
+        }
+        return head;
     }
 };
