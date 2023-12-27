@@ -32,21 +32,22 @@ public:
     }
     
     int median(vector<vector<int>> &mat, int n, int m){
-        int low = INT_MAX, high = INT_MIN, tar = (n * m)/2;
+        int low = INT_MAX, high = INT_MIN, tar = (n * m)/2, ans;
         for(int i = 0; i < n; i++) {
             low = min(low, mat[i][0]);
             high = max(high, mat[i][m-1]);
         }
         while(low <= high){
             int mid = low + (high - low)/2;
-            if(elementsLessThanOrEqualTo(mid, mat) <= tar){
-                low = mid + 1;
-            }
-            else {
+            if(elementsLessThanOrEqualTo(mid, mat) > tar){
+                ans = mid;
                 high = mid - 1;
             }
+            else {
+                low = mid + 1;
+            }
         }
-        return low;
+        return ans;
     }
 };
 
