@@ -14,26 +14,19 @@ public:
     //that array is divided into three parts.
     void threeWayPartition(vector<int>& arr,int a, int b)
     {
-        int st = 0, en = arr.size() - 1;
-        for(int i = 0; i <= en;){
-            if(arr[i] < a)
-            {
-                if(i == st){
-                    i++;
-                    st++;
-                    continue;
-                }
-                auto temp = arr[i];
-                arr[i] = arr[st];
-                arr[st++] = temp;
+        int n = arr.size();
+        int low = 0,mid = 0, high = n - 1;
+        while(mid <= high){
+            if(arr[mid] < a){
+                swap(arr[mid], arr[low]);
+                low++;
+                mid++;
+            } else if(arr[mid] > b){
+                swap(arr[mid], arr[high]);
+                high--;
+            } else {
+                mid++;
             }
-            else if(arr[i] > b){
-                auto temp = arr[i];
-                arr[i] = arr[en];
-                arr[en--] = temp;
-            }
-            else
-                i++;
         }
     }
 };
