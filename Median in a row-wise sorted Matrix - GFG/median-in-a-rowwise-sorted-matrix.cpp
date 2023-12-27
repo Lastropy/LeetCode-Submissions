@@ -32,7 +32,7 @@ public:
     }
     
     int median(vector<vector<int>> &mat, int n, int m){
-        int low = INT_MAX, high = INT_MIN, tar = (n * m)/2, ans;
+        int low = INT_MAX, high = INT_MIN, tar = (n * m)/2;
         for(int i = 0; i < n; i++) {
             low = min(low, mat[i][0]);
             high = max(high, mat[i][m-1]);
@@ -40,7 +40,6 @@ public:
         while(low <= high){
             int mid = low + (high - low)/2;
             if(elementsLessThanOrEqualTo(mid, mat) <= tar){
-    
                 low = mid + 1;
             }
             else {
