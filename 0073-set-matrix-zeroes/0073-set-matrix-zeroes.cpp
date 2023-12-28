@@ -1,25 +1,26 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& mat) {
-        unordered_map<int, int> r0, c0;
         int n = mat.size(), m = mat[0].size();
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m;j++){
-                if(mat[i][j]==0){
-                    r0[i] = 1;
-                    c0[j] = 1;
-                }
-            }
-        }
-        for(auto [k,v]: r0){
-            for(int i = 0; i< m; i++){
-                mat[k][i] = 0;
-            }
-        }
-        for(auto [k,v]: c0){
-            for(int i = 0; i< n; i++){
-                mat[i][k] = 0;
-            }
-        }
+        bool r0 = false,c0 = false;
+        
+        for(int i = 0; i < n && !r0; i++) r0 = (mat[i][0] == 0);
+        for(int i = 0; i < m && !c0; i++) c0 = (mat[0][i] == 0);
+        
+        for(int i = 1; i < n; i++)
+            for(int j = 1; j < m; j++)
+                if(mat[i][j] == 0) 
+                    mat[i][0] = 0, mat[0][j] = 0;
+        
+        for(int i = 1; i < n; i++)
+            for(int j = 1; j < m && mat[i][0] == 0; j++)
+                mat[i][j] = 0;
+        
+        for(int i = 1; i < m; i++)
+            for(int j = 1; j < n && mat[0][i] == 0; j++)
+                mat[j][i] = 0;
+            
+        for(int i = 0; i < n && r0; i++) mat[i][0] = 0;        
+        for(int i = 0; i < m && c0; i++) mat[0][i] = 0;        
     }
 };
