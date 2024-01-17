@@ -1,39 +1,20 @@
 class Solution {
 public:
     int balancedString(string s) {
-        //step - 1
-        int n = s.size();
-        int des = n / 4;
         unordered_map<char, int> mp;
-        
+        int n = s.size(), ans = INT_MAX, des = n / 4;
         for(char c: s) mp[c]++;
-        
-        // step - 2
-        for(auto [k,v]: mp){
-            mp[k] = max(0,v- des);
-        }
-        
-        if(mp['Q'] == 0 && mp['R'] == 0 && mp['W'] == 0 && mp['E'] == 0)
-            return 0;
-        
-        /*
-            QRQEQWRR
-            Q -> 1
-            R -> 1
-            E -> 0
-            W -> 0
-        */
-        
-        // step - 3
-        int ans = n;
-        for(int i =0, j= 0; j< n; j++){
+        for(auto [k, v]: mp) mp[k] = max(0, v - des);
+        if(mp['Q'] == 0 && mp['W'] == 0 && mp['E'] == 0 && mp['R'] == 0) return 0;
+        for(int i = 0, j = 0; j < n; j++){
             mp[s[j]]--;
-            while(mp['Q'] <= 0 && mp['R'] <= 0 && mp['W'] <= 0 && mp['E'] <= 0){
-                mp[s[i]]++;
+            while(i <= j && mp['Q'] <= 0 && mp['W'] <= 0 && mp['E'] <= 0 && mp['R'] <= 0){
                 ans = min(ans, j - i + 1);
+                mp[s[i]]++;
                 i++;
             }
         }
         return ans;
+        
     }
 };
