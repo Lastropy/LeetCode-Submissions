@@ -6,7 +6,7 @@ public:
         if(k == n) return true;
         unordered_map<char, int> mp;
         for(char c: s) mp[c]++;
-        if(mp.size() <= k) return true;
+        // if(mp.size() <= k) return true;
         int odders = 0;
         for(auto [k, v]: mp) odders+= (v % 2);
         return k >= odders;       
