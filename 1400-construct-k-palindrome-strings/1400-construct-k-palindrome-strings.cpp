@@ -7,11 +7,8 @@ public:
         unordered_map<char, int> mp;
         for(char c: s) mp[c]++;
         if(mp.size() <= k) return true;
-        int eveners = 0, odders = 0;
-        for(auto [k, v]: mp){
-            if(v % 2 == 0) eveners++;
-            else odders++;
-        }
+        int odders = 0;
+        for(auto [k, v]: mp) odders+= (v % 2);
         return k >= odders;       
     }
 };
