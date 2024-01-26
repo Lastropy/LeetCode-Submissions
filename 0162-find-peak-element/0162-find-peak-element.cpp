@@ -10,6 +10,6 @@ public:
                 e = m - 1;
             else s = m + 1;
         }
-        return (s % n);
+        return -1;
     }
 };
