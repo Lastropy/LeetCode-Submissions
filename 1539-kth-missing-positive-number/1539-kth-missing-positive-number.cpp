@@ -8,7 +8,7 @@ public:
             else e = m - 1;
         }
         // int missing_num = a[e] + (k - (a[e] - (e + 1)));
-        int missing_num = e + k + 1; 
+        int missing_num = k + e + 1; 
         return missing_num;
     }
 };
