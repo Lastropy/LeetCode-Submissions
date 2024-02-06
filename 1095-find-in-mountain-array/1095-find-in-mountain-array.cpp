@@ -15,11 +15,12 @@ public:
             int m = s + (e - s)/2;
             int ele = a.get(m);
             if(ele == t) return m;
-            if(rev){
-                if(ele < t) e = m - 1;
+            else if(ele < t){
+                if(rev) e = m - 1;
                 else s = m + 1;
-            } else {
-                if(ele < t) s = m + 1;
+            } 
+            else {
+                if(rev) s = m + 1;
                 else e = m - 1;
             }
         }
