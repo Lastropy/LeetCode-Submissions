@@ -1,6 +1,5 @@
 class Solution {
 public:
-    int cnt = 0;
     void merge(vector<int> &arr, int st, int mid, int en){
         int left = st, right = mid + 1;
         vector<int> temp;
@@ -22,24 +21,26 @@ public:
         for(int i = 0; i < temp.size(); i++)
             arr[i + st] = temp[i];
     }
-    void count_pairs(vector<int> &arr, int st, int mid, int en){
+    int count_pairs(vector<int> &arr, int st, int mid, int en){
         int right = mid + 1;
+        int cnt = 0;
         for(int left = st; left <= mid; left++){
             while(right <= en && arr[left] > 1LL * 2 * arr[right]) right++;
             cnt += (right - (mid + 1));
         }
+        return cnt;
     }
-    void merge_sort(vector<int> &arr ,int st, int en){
-        if(st >= en) return ;
-        int mid = st + (en - st)/2;
-        merge_sort(arr, st, mid);
-        merge_sort(arr, mid + 1, en);
-        count_pairs(arr, st, mid, en);
+    int merge_sort(vector<int> &arr ,int st, int en){
+        int mid = st + (en - st)/2, curr_count = 0;
+        if(st >= en) return curr_count;
+        curr_count += merge_sort(arr, st, mid);
+        curr_count += merge_sort(arr, mid + 1, en);
+        curr_count += count_pairs(arr, st, mid, en);
         merge(arr, st, mid, en);
+        return curr_count;
     }
     int reversePairs(vector<int>& nums) {
         int n = nums.size();
-        merge_sort(nums, 0 , n - 1);
-        return cnt;
+        return merge_sort(nums, 0 , n - 1);
     }
 };
