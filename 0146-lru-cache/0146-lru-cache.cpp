@@ -1,3 +1,13 @@
+/*  
+Class node is there to store nodes of a Doubly Linked List.
+DLL has head and tail.
+It contains prev, next, key and value.
+A map will be used to store the node location by key value.
+When a node is inserted/accessed, it becomes RECENTLY USED.
+DLL is ordered such that the most RECENTLY USED key value node is near the head and least recently used node is near the tail.
+Insert always happens at head ( most recently used )
+Deletion always happens at tail ( least recently used )
+*/
 class node {
     public:
         node *prev = NULL;
@@ -12,11 +22,13 @@ class node {
 
 class LRUCache {
 public:
+    /** initial DLL**/
     node *head = new node(-1, -1);
     node *tail = new node(-1, -1);
     int cap;
     unordered_map<int, node*> m;
     
+    /** DLL function - addNode **/
     void addNode(node *newNode){
         node *temp = head -> next;
         
@@ -26,7 +38,8 @@ public:
         newNode -> next = temp;
         temp -> prev = newNode;
     }
-
+    
+    /** DLL function - deleteNode **/
     void deleteNode(node *n){
         auto prevN = n -> prev;
         auto nextN = n -> next;
@@ -35,6 +48,7 @@ public:
         delete n;
     }
     
+    /** intialize LRUcache **/
     LRUCache(int capacity) {
         cap = capacity;
         head -> next = tail;
@@ -42,6 +56,11 @@ public:
     }
     
     
+    /** 
+        get a key's value if present
+        else return -1.
+        if present, delete existing node and move it next to head 
+    **/
     int get(int _key) {
         if(m.count(_key)){
             auto n = m[_key];
@@ -55,6 +74,12 @@ public:
         return -1;
     }
     
+    /** 
+        if key node already present, delete it.
+        if capacity full, delete from tail (LRU)
+        add node to head (most recently used)
+        add to map
+    **/
     void put(int key, int value) {
         if(m.count(key)){
             node *existingN = m[key];
@@ -69,10 +94,3 @@ public:
         m[key] = head -> next;
     }
 };
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
