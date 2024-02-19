@@ -46,8 +46,8 @@ public:
 
 class LFUCache {
 private:
-    map<int, node*> keyNode;
-    map<int, DLL*> freqList;
+    unordered_map<int, node*> keyNode;
+    unordered_map<int, DLL*> freqList;
     int maxCacheSize;
     int minFreq;
     int currSize;
