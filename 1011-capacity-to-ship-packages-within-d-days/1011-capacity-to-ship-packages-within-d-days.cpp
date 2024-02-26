@@ -15,7 +15,8 @@ public:
     }
     
     int shipWithinDays(vector<int>& w, int t) {
-        int s = 1, e = INT_MAX;       
+        int s = 1;
+        int e = accumulate(w.begin(), w.end(), 0);
         int ans = -1;
         while(s <= e){
             int mid = s + (e - s)/2;
