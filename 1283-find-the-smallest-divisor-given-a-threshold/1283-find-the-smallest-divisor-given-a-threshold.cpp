@@ -19,11 +19,9 @@ public:
         while(s <= e){
             int mid = s + (e - s) / 2;
             if(satisfiesThreshold(a, mid, t)){
-                cout << "yes" << endl;
                 ans = mid;
                 e = mid - 1;
             } else {
-                cout << "no" << endl;
                 s = mid + 1;
             }
         }
