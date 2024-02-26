@@ -19,11 +19,8 @@ public:
     int minDays(vector<int>& g, int m, int k) {
         int n = g.size();
         if(1LL * m * k > n) return -1;
-        int s = INT_MAX, e = INT_MIN;
-        for(int i: g){
-            s = min(i, s);
-            e = max(i, e);
-        }
+        int s = *min_element(g.begin(), g.end());
+        int e = *max_element(g.begin(), g.end());
         int ans = -1;
         while(s <= e){
             int mid = s + (e - s)/2;
