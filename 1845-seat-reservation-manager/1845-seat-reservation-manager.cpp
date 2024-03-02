@@ -7,6 +7,17 @@ public:
         heap = vector<int>(cap, -1);
         sz = 0;
     }
+    
+    void buildHeapFromArray(int n){
+        sz = n;
+        for(int i = 0; i < sz; i++){
+            heap[i] = i+1;
+        }
+        int startIdx = (sz - 1)/2;
+        for(int i = startIdx; i >= 0; i--){
+             topDownMinHeapify(i);
+        }
+    }
         
     int parent(int pos) {
         return ((pos - 1)/ 2);
@@ -20,14 +31,10 @@ public:
         return (2 * pos + 2);
     }
      
+    // Top 
     void push(int ele){
         heap[sz] = ele;
-        int ch = sz;
-        while(ch != 0 && heap[parent(ch)] > heap[ch])
-        {
-            swap(heap[parent(ch)], heap[ch]);
-            ch = parent(ch);
-        }
+        bottomUpMinHeapify(sz);
         sz++;
     }
     
@@ -36,12 +43,21 @@ public:
         sz--;
         if(sz > 0) {
             swap(heap[0], heap[sz]);
-            heapify(0);
+            topDownMinHeapify(0);
         }
         return val;
     }
     
-    void heapify(int pos){
+    void bottomUpMinHeapify(int idx){
+        int ch = idx;
+        while(ch != 0 && heap[parent(ch)] > heap[ch])
+        {
+            swap(heap[parent(ch)], heap[ch]);
+            ch = parent(ch);
+        }
+    }
+    
+    void topDownMinHeapify(int pos){
         int p = pos;
         while(p < sz) {
             int l = leftChild(p), r = rightChild(p);
@@ -60,9 +76,13 @@ public:
     MinHeap *h;
     SeatManager(int n) {
         h = new MinHeap(n);
-        for(int i = 1; i <= n; i++){
-            h -> push(i);
-        }
+        // // Top Down approach to make Heap from array
+        // for(int i = 0; i < n; i++){
+        //     h -> push(i+1);
+        // }
+        
+        // Bottom Up approach to make Heap from array
+        h -> buildHeapFromArray(n);
     }
     
     int reserve() {
