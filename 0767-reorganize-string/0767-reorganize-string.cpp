@@ -9,19 +9,20 @@ public:
                 return "";
         }
         
-        priority_queue<pair<int, char>> pq;
+        vector<string> buckets(n + 1);
         for(auto [k,v]: mp){
-            pq.push({v, k});
+            buckets[v] += string(1,k);
         }
+        
         int pos = 0;
-        while(!pq.empty()){
-            char c; int f;
-            tie(f, c) = pq.top();
-            pq.pop();
-            while(f--){
-                s[pos] = c;
-                pos = (pos + 2);
-                if(pos >= n) pos = 1;
+        for(int i = ceil((double)n/2.0); i >= 0; i--){
+            for(int j = 0; j < buckets[i].size(); j++){
+                int f = i;
+                while(f--){
+                    s[pos] = buckets[i][j];
+                    pos = (pos + 2);
+                    if(pos >= n) pos = 1;
+                }
             }
         }
         return s;
