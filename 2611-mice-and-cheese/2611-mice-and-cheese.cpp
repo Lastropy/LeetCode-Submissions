@@ -1,16 +1,19 @@
 class Solution {
     public:
-#define ll 
+using ll = long long;
 int miceAndCheese(vector<int>& r1, vector<int>& r2, int k) {
     long long n = r1.size(), ans = 0;
-    for(int i = 0; i < n; i++){
-        ans += r2[i];
-        r1[i] -= r2[i];
+    vector<pair<int,int>> diff;
+    for(int i = 0; i < n; i++)
+        diff.push_back({r1[i] - r2[i], i});
+
+    sort(diff.begin(), diff.end(), [&](const auto &a, const auto &b){
+        return a.first > b.first;
+    });
+    for(int i = 0; i < k; i++){
+        ans += r1[diff[i].second];
+        r2[diff[i].second] = 0;
     }
-    
-    // Finds biggest k elements in array in O(N)
-    nth_element(begin(r1), begin(r1) + k, end(r1), greater<int>());
-    
-    return accumulate(begin(r1), begin(r1)+ k, ans);
+    return accumulate(r2.begin(), r2.end(), ans);
 }
 };
