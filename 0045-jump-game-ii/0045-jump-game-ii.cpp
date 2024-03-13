@@ -1,26 +1,17 @@
 class Solution {
 public:
-    int jump(vector<int>& a) {
-        int n = a.size();
-        int jumps = 1, maxR = a[0], steps = a[0];
-        if(n <= 1) return 0;
-        if(a[0] == 0) return -1;
-        
-        for(int i = 1; i < n; i++){
-            if(i == n-1){
-                return jumps;
-            }
-            
-            maxR = max(maxR, i + a[i]);
-            steps--;
-            if(steps == 0){
-                jumps++;
-                if(i >= maxR){
-                    return -1;
-                }
-                steps = maxR - i;
-            }
+    int jump(vector<int>& nums) {
+        int n = size(nums);
+        if(n < 2) return 0; 
+        int i = 0, maxReachable = 0, lastJumpedPos = 0, jumps = 0;
+        while(lastJumpedPos < n - 1) {  
+            maxReachable = max(maxReachable, i + nums[i]);  
+            if(i == lastJumpedPos) {			  
+                lastJumpedPos = maxReachable;     
+                jumps++; 
+            }            
+            i++;
         }
-        return -1;        
+        return jumps;
     }
 };
