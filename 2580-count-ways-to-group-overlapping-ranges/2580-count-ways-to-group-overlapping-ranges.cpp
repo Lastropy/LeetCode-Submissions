@@ -9,17 +9,18 @@ public:
         return res;
     }
     int countWays(vector<vector<int>>& a) {
-        map<int, int> mp;
-        for(auto v: a){
-            mp[v[0]]++;
-            mp[v[1]]--;
-        }
+        sort(a.begin(), a.end(), [&](const vector<int> &p, const vector<int> &q){
+            return p[0] < q[0];
+        });
         
-        int grps = 1, curr = 0;
-        for(auto [k,v]: mp){
-            curr += v;
-            if(curr == 0) grps++;
+        int grps = 1, curr = 0, curr_max = a[0][1];
+        for(int i = 1; i < a.size(); i++){
+            if(a[i][0] > curr_max){
+                grps++;
+                curr_max = a[i][1];
+            }
+            curr_max = max(curr_max, a[i][1]);
         }
-        return permut(grps - 1);
+        return permut(grps);
     }
 };
