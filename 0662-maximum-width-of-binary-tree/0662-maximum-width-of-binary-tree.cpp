@@ -12,8 +12,8 @@ public:
             for(int i = 0; i < siz; i++){
                 auto tmp = q.front(); q.pop();
                 idx = tmp.second - mi;
-                if(tmp.first -> left) q.push({tmp.first -> left, (idx * 2) });
-                if(tmp.first -> right) q.push({tmp.first -> right, (idx * 2) + 1});
+                if(tmp.first -> left) q.push({tmp.first -> left, (idx * 2) + 1 });
+                if(tmp.first -> right) q.push({tmp.first -> right, (idx * 2) + 2});
             }
         }
         return ans;
