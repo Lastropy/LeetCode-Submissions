@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int bfs(TreeNode* root){
+    int widthOfBinaryTree(TreeNode* root) {
         if(!root) return 0;
         queue<pair<TreeNode*, long long>> q;
         q.push({root, 1});
@@ -17,8 +17,5 @@ public:
             }
         }
         return ans;
-    }
-    int widthOfBinaryTree(TreeNode* root) {
-        return bfs(root);
     }
 };
