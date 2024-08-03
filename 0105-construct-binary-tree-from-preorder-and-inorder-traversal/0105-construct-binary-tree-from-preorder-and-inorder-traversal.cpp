@@ -11,25 +11,22 @@
  */
 class Solution {
 public:
-    TreeNode *build(vector<int>& p, vector<int>& i, int stp, int enp, int sti, int eni){
-        // cout << format("stp = {} enp = {} sti = {} eni = {} ", stp, enp, sti, eni) << endl;
+    TreeNode *build(vector<int> &p, vector<int> &i, unordered_map<int, int> &mp, int stp, int enp, int sti, int eni){
         if(sti > eni || stp > enp) return NULL;        
         auto root = new TreeNode(p[stp]);
-        int idx;
-        for(idx = sti; idx <= eni; idx++){
-            if(i[idx] == p[stp]){
-                break;
-            }
-        }
-        // cout << p[stp] << " | "<< idx << endl;
-        root -> left = build(p, i, stp + 1, stp + (idx - sti) ,sti, idx -1);
-        root -> right = build(p, i,stp + (idx - sti) + 1 , enp,idx + 1, eni);
+        int idx = mp[root -> val];
+        int numLeft = (idx - sti);
+        root -> left = build(p, i, mp, stp + 1, stp + numLeft,sti, idx - 1);
+        root -> right = build(p, i, mp, stp + numLeft + 1 , enp,idx + 1, eni);
         return root;
     }
     TreeNode* buildTree(vector<int>& p, vector<int>& i) {
         int stp = 0, enp = p.size() - 1;
         int sti = 0, eni = i.size() - 1;
-        
-        return build(p, i, stp, enp, sti, eni);
+        unordered_map<int, int> mp;
+        for(int idx = 0; idx < i.size(); idx++){
+            mp[i[idx]] = idx;
+        }
+        return build(p, i, mp, stp, enp, sti, eni);
     }
 };
