@@ -39,7 +39,6 @@ public:
         auto en = BSTIterator(root, "before");
         int p = st.nextEle(), q = en.nextEle();
         while(st.hasEle() && en.hasEle()){
-            cout << p << " | " << q << endl;
             if(p >= q || p + q == k) break;
             if(p + q < k) p = st.nextEle();
             else q = en.nextEle();
