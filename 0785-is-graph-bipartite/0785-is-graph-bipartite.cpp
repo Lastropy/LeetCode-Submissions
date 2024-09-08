@@ -1,13 +1,17 @@
 class Solution {
 public:
-    bool checkBipartite(vector<vector<int>> &g, vector<int> &col, int i, int curr){
-        if(col[i] != -1) return (col[i] == curr);
-        
-        col[i] = curr;
-        for(auto u: g[i]){
-            if(col[u] == curr) return false;
-            else if(col[u] == -1 && !checkBipartite(g, col, u, !curr)){
-                return false;
+    bool checkBipartite(vector<vector<int>> &g, vector<int> &col, int i){
+        queue<int> q;
+        col[i] = 1;
+        q.push(i);
+        while(!q.empty()){
+            auto temp = q.front(); q.pop();
+            for(auto u: g[temp]){
+                if(col[u] == col[temp]) return false;
+                if(col[u] == -1){
+                    q.push(u);
+                    col[u] = !col[temp];
+                } 
             }
         }
         return true;
@@ -17,11 +21,8 @@ public:
         int n = g.size();
         vector<int> col(n, -1);
         for(int i = 0; i < n; i++){
-            // cout <<"Hi "<< i << endl;
-            if(col[i] == -1 && !checkBipartite(g, col, i, 1)){
-                // cout <<"Hello "<<  i<< endl;
+            if(col[i] == -1 && !checkBipartite(g, col, i))
                 return false;
-            }
         }
         return true;
     }
