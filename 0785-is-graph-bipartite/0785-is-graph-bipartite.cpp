@@ -1,29 +1,27 @@
 class Solution {
 public:
-    bool checkBipartite(vector<vector<int>> &g, vector<int> &colour, int st){
-        if(colour[st] != -1) return true;
+    bool checkBipartite(vector<vector<int>> &g, vector<int> &col, int i, int curr){
+        if(col[i] != -1) return (col[i] == curr);
         
-        queue<int> q;
-        colour[st] =1;
-        for(q.push(st); !q.empty(); q.pop()){
-            auto temp = q.front();
-            for(auto node: g[temp]){
-                if(colour[node] == colour[temp])
-                    return false;
-                if(colour[node] == -1){
-                    q.push(node);
-                    colour[node] = 1-colour[temp];
-                } 
+        col[i] = curr;
+        for(auto u: g[i]){
+            if(col[u] == curr) return false;
+            else if(col[u] == -1 && !checkBipartite(g, col, u, !curr)){
+                return false;
             }
         }
         return true;
     }
     
-    bool isBipartite(vector<vector<int>>& graph) {
-        vector<int> colour(graph.size(), -1);
-        for(int i = 0; i < graph.size(); i++){
-            if(!checkBipartite(graph, colour, i))
+    bool isBipartite(vector<vector<int>>& g) {
+        int n = g.size();
+        vector<int> col(n, -1);
+        for(int i = 0; i < n; i++){
+            // cout <<"Hi "<< i << endl;
+            if(col[i] == -1 && !checkBipartite(g, col, i, 1)){
+                // cout <<"Hello "<<  i<< endl;
                 return false;
+            }
         }
         return true;
     }
