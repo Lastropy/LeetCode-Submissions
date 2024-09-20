@@ -24,7 +24,6 @@ public:
         long long ans = 0;
         for(int i = 1; i < dist.size(); i++){
             if(dist[i] == LLONG_MAX) {
-                cout << i << endl;
                 return -1;
             }
             ans = max(dist[i] , ans);
