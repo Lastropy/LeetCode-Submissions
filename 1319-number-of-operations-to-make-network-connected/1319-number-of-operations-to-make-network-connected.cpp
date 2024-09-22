@@ -13,11 +13,11 @@ public:
     }
     
     int findUniqueSets(){
+        int ans = 0;
         for(int i = 0; i < parent.size(); i++){
-            findUltimateParent(i);
+            ans += (parent[i] == i);
         }
-        unordered_set<int> st(parent.begin(), parent.end());
-        return st.size();
+        return ans;
     }
     
     bool unionBySize(int u, int v){
