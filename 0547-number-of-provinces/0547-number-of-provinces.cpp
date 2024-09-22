@@ -1,25 +1,55 @@
-class Solution {
+class DisjointSet{
+vector<int> parent, size;
 public:
-    void dfs(int i, vector<bool> &vis, vector<vector<int>> &adj){
-        if(i < 0 || i >= adj.size() || vis[i]) return;
-        vis[i] = true;
-        for(int u = 0; u < adj[i].size(); u++){
-            if(i != u && adj[i][u] && !vis[u]){
-                dfs(u, vis, adj);
-            }
-        }
+    DisjointSet(int n){
+        parent.resize(n);
+        iota(parent.begin(), parent.end(), 0);
+        size.resize(n, 1);
+    }   
+    
+    int findUltimateParent(int u){
+        if(u == parent[u]) return u;
+        return parent[u] = findUltimateParent(parent[u]);
     }
     
-    int findCircleNum(vector<vector<int>>& adj) {
-        int v = adj.size();
-        vector<bool> vis(v, false);
+    int numberOfConnectedComponents(){
         int ans = 0;
-        for(int i = 0; i < v;i++){
-            if(!vis[i]){
-                dfs(i, vis, adj);
-                ans++;
-            }
+        for(int i = 0; i < parent.size(); i++){
+            ans += (parent[i] == i);
         }
         return ans;
+    }
+    
+    bool unionBySize(int u, int v){
+        int upU = findUltimateParent(u);        
+        int upV = findUltimateParent(v);
+        if(upU != upV){
+            if(size[upU] < size[upV]){
+                parent[upU] = upV;
+                size[upV] += size[upU];
+            } else {
+                parent[upV] = upU;
+                size[upU] += size[upV];
+            }
+            return true;
+        }
+        return false;
+    }
+};
+
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& adj) {
+        int v = adj.size();
+        DisjointSet ds(v);
+        for(int i = 0; i < v;i++){
+            for(int j = 0; j < v; j++){
+                if(adj[i][j]){
+                    ds.unionBySize(i, j);
+                }
+            }
+        }
+        
+        return ds.numberOfConnectedComponents();
     }
 };
