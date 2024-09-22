@@ -56,10 +56,10 @@ public:
         }
         
         vector<vector<string>> ans;
-        unordered_map<int, int> ansIndex;
+        vector<int> ansIndex(n, -1);
         for(auto [k, v]: mp){
             int up = ds.findUltimateParent(v);
-            if(!ansIndex.count(up)){
+            if(ansIndex[up] == -1){
                 ansIndex[up] = ans.size();
                 ans.push_back({accounts[up][0]});
             }
