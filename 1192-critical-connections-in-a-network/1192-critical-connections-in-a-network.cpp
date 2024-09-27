@@ -6,7 +6,7 @@ class Solution {
         time[node] = low_time[node] = timer++;
         for(auto it: adj[node]){
             if(it == parent) continue;
-            if(!vis[it]) dfs(it, node, vis, adj, time, low_time, ans);
+            dfs(it, node, vis, adj, time, low_time, ans);
             low_time[node] = min(low_time[node], low_time[it]);
             if(low_time[it] > time[node]){
                 ans.push_back({it, node});
