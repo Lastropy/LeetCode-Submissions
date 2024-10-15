@@ -14,15 +14,19 @@ public:
     
     int numDecodings(string s) {
         int n = s.size();
-        dp.resize(n+1, 0);
-        dp[n] = 1;
+        int prev1 = 1; // dp[idx + 1]
+        int prev2; // dp[idx + 2]
+        int curr = 0; // dp[idx]
         for(int idx = n - 1; idx >= 0; idx --){
+            curr = 0;
             if(isValid(s, idx, idx)){
-                dp[idx] += dp[idx + 1];
+                curr += prev1;
             } if(idx + 1 < s.size() && isValid(s, idx, idx + 1)){
-                dp[idx] += dp[idx + 2];
+                curr += prev2;
             }
+            prev2 = prev1;
+            prev1 = curr;
         }
-        return dp[0];
+        return curr;
     }
 };
