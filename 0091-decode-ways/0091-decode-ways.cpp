@@ -12,25 +12,17 @@ public:
         return true;
     }
     
-    int solve(int idx, string &s){
-        if(idx >= s.size()) return 1;
-        if(dp[idx] != -1) return dp[idx];
-        // cout << "trying "<< idx << endl; 
-        int ans = 0;
-        if(isValid(s, idx, idx)){
-            ans += solve(idx + 1, s);
-        }
-        if(idx != s.size() - 1 && isValid(s, idx, idx+1)){
-            ans += solve(idx + 2, s);
-        }
-        return dp[idx] = ans;
-    }
-    
     int numDecodings(string s) {
-        if(s.size() == 0) return 0;
         int n = s.size();
-        dp.resize(n+1, -1);
-        solve(0, s);
+        dp.resize(n+1, 0);
+        dp[n] = 1;
+        for(int idx = n - 1; idx >= 0; idx --){
+            if(isValid(s, idx, idx)){
+                dp[idx] += dp[idx + 1];
+            } if(idx + 1 < s.size() && isValid(s, idx, idx + 1)){
+                dp[idx] += dp[idx + 2];
+            }
+        }
         return dp[0];
     }
 };
