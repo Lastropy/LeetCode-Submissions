@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> dp;
     int solve(int i, int j, int tar_row, int tar_col, vector<vector<int>>& g){
-        if(i > tar_row || j > tar_col) return INT_MAX;
+        if(i > tar_row || j > tar_col) return 1e9;
         if(i == tar_row && j == tar_col) return g[tar_row][tar_col];
         if(dp[i][j] != -1) return dp[i][j];
         int right = solve(i + 1, j, tar_row, tar_col, g);        
