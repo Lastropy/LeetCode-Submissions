@@ -24,6 +24,35 @@ public:
     int cherryPickup(vector<vector<int>>& g) {
         int m = g.size(), n = g[0].size();
         dp.resize(m, vector<vector<int>>(n, vector<int>(n, -1e9)));
-        return solve(g, 0, 0, n-1);
+        
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                dp[m-1][i][j] = g[m-1][i];
+                if(i == j) continue;
+                dp[m-1][i][j] += g[m-1][j];
+            }
+        }
+        
+        for(int p = m - 2; p >= 0; p--){
+            for(int x = 0; x < n; x++){
+                for(int y = 0; y < n; y++){
+                     int maxi = INT_MIN;
+                    // Inner nested loops to try out 9 options (diagonal moves)
+                    for (int dx = -1; dx <= 1; dx++) {
+                        for (int dy = -1; dy <= 1; dy++) {
+                            int ans = g[p][x];
+                            if (x != y) ans += g[p][y];
+                            if ((x + dx < 0 || x + dx >= n) || (y + dy < 0 || y + dy >= n))
+                                ans = -1e9;
+                            else
+                                ans += dp[p + 1][x + dx][y + dy];
+                            maxi = max(ans, maxi);
+                        }
+                    }
+                    dp[p][x][y] = maxi; 
+                }
+            }
+        }
+        return dp[0][0][n-1];
     }
 };
