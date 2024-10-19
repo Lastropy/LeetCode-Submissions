@@ -1,22 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> dp;
-    bool solve(int set1, int totalSum, int idx, vector<int>& a){
-        if(idx == a.size()) {
-            int set2 = totalSum - set1;
-            return set1 == set2;
-        }
-        if(dp[idx][set1] != -1){
-            return dp[idx][set1];
-        }
-        bool pos1 = solve(set1 + a[idx], totalSum, idx + 1, a);        
-        bool pos2 = solve(set1, totalSum, idx + 1, a);
-        return dp[idx][set1] = pos1 || pos2;
+    bool solve(int idx, int targetSum, vector<int>& a){
+        if(targetSum == 0) return true;
+        if(idx == a.size()) return false;
+        if(dp[idx][targetSum] != -1) return dp[idx][targetSum];
+        bool notTaken = solve(idx + 1, targetSum, a);
+        bool taken = false;        
+        if(a[idx] <= targetSum) taken = solve(idx + 1, targetSum - a[idx], a);
+        return dp[idx][targetSum] = taken || notTaken;
     }
     
     bool canPartition(vector<int>& a) {
-        int totalSum = accumulate(a.begin(), a.end(), 0);
-        dp.resize(a.size(), vector<int>(totalSum + 1, -1));
-        return solve(0, totalSum, 0, a);
+        int totalSum = 0;
+        for(int i: a) totalSum += i;
+        if(totalSum % 2) return false;
+        int targetSum = (totalSum / 2);
+        dp.resize(a.size(), vector<int>(targetSum + 1, -1));
+        return solve(0, targetSum, a);
     }
 };
