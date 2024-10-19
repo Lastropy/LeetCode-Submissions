@@ -3,7 +3,8 @@ public:
     vector<vector<int>> dp;
     bool solve(int set1, int totalSum, int idx, vector<int>& a){
         if(idx == a.size()) {
-            return (set1) == (totalSum - set1);
+            int set2 = totalSum - set1;
+            return set1 == set2;
         }
         if(dp[idx][set1] != -1){
             return dp[idx][set1];
