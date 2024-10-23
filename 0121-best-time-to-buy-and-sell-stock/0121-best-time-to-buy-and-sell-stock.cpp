@@ -1,12 +1,22 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& a) {
-        int mn = a[0];
-        int ans = 0;
-        for(int i = 1; i < a.size(); i++){
-            ans = max(ans, a[i] - mn);
-            mn = min(mn, a[i]);
+    vector<vector<int>> dp;
+    int solve(vector<int> &p, int idx, bool bought = false) {
+        if(idx == p.size()) return 0;
+        if(dp[idx][bought] != -1e9) return dp[idx][bought];
+        if(!bought) {
+            int buy = -p[idx] + solve(p, idx + 1, !bought);
+            int notBuy = 0 + solve(p, idx + 1, bought);
+            return dp[idx][bought] = max(buy, notBuy);
+        } else {
+            int sell = +p[idx];
+            int notSell = solve(p, idx + 1, bought);
+            return dp[idx][bought] = max(sell, notSell);
         }
-        return ans;
+    }
+    
+    int maxProfit(vector<int>& p) {
+        dp.resize(p.size(), vector<int>(2, -1e9));
+        return solve(p, 0);
     }
 };
