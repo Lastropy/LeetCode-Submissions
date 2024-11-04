@@ -4,15 +4,14 @@ public:
         int n = h.size(), ans = 0;
         int l = 0, r = n-1, lmax = INT_MIN, rmax = INT_MIN;
         while(l <= r){
-            if(h[l] <= h[r]){
-                if(h[l] >= lmax) lmax = h[l];
-                else ans += (lmax - h[l]);
-                l++;
-            }
-            else {
-                if(h[r] >= rmax) rmax = h[r];
-                else ans += (rmax - h[r]);
+            if(rmax <= lmax){
+                if(rmax < h[r]) rmax = h[r];
+                ans += rmax - h[r];
                 r--;
+            } else {
+                if(lmax < h[l]) lmax = h[l];
+                ans += lmax - h[l];
+                l++;
             }
         }
         return ans;
