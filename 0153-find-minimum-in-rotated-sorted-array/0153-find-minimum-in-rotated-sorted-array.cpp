@@ -2,12 +2,19 @@ class Solution {
 public:
     int findMin(vector<int>& a) {
         int n = a.size();
-        int s = 0, e  = n - 1;
-        while(s < e){
-            int m = s + (e - s) /2 ;
-            if(a[m] < a[e]) e = m;
-            else s = m + 1;
+        if(n == 1 || a[0] < a[n - 1]) return a[0];
+        int l = 0, h = n - 1, mid = 0;
+        while(l <= h) {
+            mid = l + (h - l)/2;
+            cout << mid << endl;
+            if(((mid == 0) || (a[mid] > a[mid - 1])) && ((mid == n - 1) || (a[mid] > a[mid + 1]))){
+                break;
+            } else if(a[0] <= a[mid]){
+                l = mid + 1;
+            } else {
+                h = mid - 1;
+            }
         }
-        return a[s % n];
+        return a[mid + 1];
     }
 };
